@@ -128,12 +128,12 @@ public static class SpaceInvadersGameStateRules
                 return;
             case 1: // LEFT
             {
-                gs.playerPosition += Vector2.up * 0.5f;
+                gs.playerPosition += Vector2.up * SpaceInvadersGameState.enemySpeed * 4;
                 break;
             }
             case 2: // RIGHT
             {
-                gs.playerPosition += Vector2.down * 0.5f;
+                gs.playerPosition += Vector2.down * SpaceInvadersGameState.enemySpeed * 4;
                 break;
             }
             case 3: // SHOOT
@@ -162,12 +162,12 @@ public static class SpaceInvadersGameStateRules
         {
             case 5: // LEFT
             {
-                gs.playerPosition2 += Vector2.up * 0.5f;
+                gs.playerPosition2 += Vector2.up * SpaceInvadersGameState.enemySpeed * 4;
                 break;
             }
             case 6: // RIGHT
             {
-                gs.playerPosition2 += Vector2.down * 0.5f;
+                gs.playerPosition2 += Vector2.down * SpaceInvadersGameState.enemySpeed * 4;
                 break;
             }
             case 7: // SHOOT

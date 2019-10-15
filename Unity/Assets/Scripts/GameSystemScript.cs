@@ -29,12 +29,12 @@ public class GameSystemScript : MonoBehaviour
         playerView = Instantiate(PlayerPrefab).GetComponent<Transform>();
         playerView2 = Instantiate(PlayerPrefab2).GetComponent<Transform>();
 
-//        agent = new RandomAgent();
-        agent = new HumanAgent();
+       //agent = new RandomAgent();
+        //agent = new HumanAgent();
        // agent = new RandomRolloutAgent();
         agent2 = new HumanAgent();
         gs.sndPlayer = true;
-        //agent = new RandomRolloutAgent();
+        agent = new RandomRolloutAgent();
         availableActions =
             new NativeArray<int>(SpaceInvadersGameStateRules.GetAvailableActions(ref gs), Allocator.Persistent);
     }
