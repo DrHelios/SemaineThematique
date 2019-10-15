@@ -20,6 +20,22 @@ public class HumanAgent : IAgent
         {
             return 2;
         }
+        if (Input.GetKey(KeyCode.UpArrow)&& gs.sndPlayer)
+        {
+            Debug.Log(gs.sndPlayer);
+            return 5;
+        }
+        
+        if (Input.GetKey(KeyCode.DownArrow)&& gs.sndPlayer)
+        {
+            return 6;
+        }
+        
+        if (Input.GetKey(KeyCode.Space)&& gs.sndPlayer)
+        {
+            return 7;
+        }
+        
 
         return 0;
     }

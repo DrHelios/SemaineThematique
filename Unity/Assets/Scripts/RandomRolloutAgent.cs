@@ -30,12 +30,12 @@ public class RandomRolloutAgent : IAgent
             for (var n = 0; n < epochs; n++)
             {
                 Rules.CopyTo(ref gs, ref gsCopy);
-                Rules.Step(ref gsCopy, availableActions[index]);
+                Rules.Step(ref gsCopy, availableActions[index],availableActions[index]);
 
                 var currentDepth = 0;
                 while (!gsCopy.isGameOver)
                 {
-                    Rules.Step(ref gsCopy, agent.Act(ref gsCopy, availableActions));
+                    Rules.Step(ref gsCopy, agent.Act(ref gsCopy, availableActions),agent.Act(ref gsCopy, availableActions));
                     currentDepth++;
                     if (currentDepth > 500)
                     {

@@ -17,18 +17,23 @@ public class GameSystemScript : MonoBehaviour
     private readonly List<Transform> projectilesView = new List<Transform>();
     private NativeArray<int> availableActions;
     private Transform playerView;
+    private Transform playerView2;
     private IAgent agent;
+    private IAgent agent2;
+
 
     void Start()
     {
         Rules.Init(ref gs);
 
         playerView = Instantiate(PlayerPrefab).GetComponent<Transform>();
-        playerView = Instantiate(PlayerPrefab2).GetComponent<Transform>();
+        playerView2 = Instantiate(PlayerPrefab2).GetComponent<Transform>();
 
 //        agent = new RandomAgent();
-//        agent = new HumanAgent();
-        agent = new RandomRolloutAgent();
+        agent = new HumanAgent();
+        agent2 = new HumanAgent();
+        gs.sndPlayer = true;
+        //agent = new RandomRolloutAgent();
         availableActions =
             new NativeArray<int>(SpaceInvadersGameStateRules.GetAvailableActions(ref gs), Allocator.Persistent);
     }
@@ -43,8 +48,10 @@ public class GameSystemScript : MonoBehaviour
         SyncEnemyViews();
         SyncProjectileViews();
         playerView.position = gs.playerPosition;
+        playerView2.position = gs.playerPosition2;
 
-        Rules.Step(ref gs, agent.Act(ref gs, availableActions));
+
+        Rules.Step(ref gs, agent.Act(ref gs, availableActions),agent2.Act(ref gs, availableActions));
     }
 
     private void SyncEnemyViews()

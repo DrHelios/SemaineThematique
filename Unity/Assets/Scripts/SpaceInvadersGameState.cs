@@ -23,4 +23,5 @@ public struct SpaceInvadersGameState
     public long currentGameStep;
     public bool isGameOver;
     public long playerScore;
+    public bool sndPlayer;
 }

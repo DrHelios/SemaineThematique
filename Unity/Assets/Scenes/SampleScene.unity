@@ -94,8 +94,9 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaDirect: 0.5
     m_PVRFilteringAtrousPositionSigmaIndirect: 2
     m_PVRFilteringAtrousPositionSigmaAO: 1
-    m_ShowResolutionOverlay: 1
     m_ExportTrainingData: 0
+    m_TrainingDataDestination: TrainingData
+    m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
   m_UseShadowmask: 1
 --- !u!196 &4
@@ -163,11 +164,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8cfcd316fb0a6e46851d8ba07f86804, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnemyPrefab: {fileID: 3198574555029696220, guid: 187133e888403db4cbb1d6d13a11436f,
+  EnemyPrefab: {fileID: 8886385396455887703, guid: a49be0991f235a44dabbe989f0587c36,
     type: 3}
   ProjectilePrefab: {fileID: 1422531959741914303, guid: 66e7b5006d449694eb4716d0549ff96c,
     type: 3}
   PlayerPrefab: {fileID: 8886385396455887703, guid: a49be0991f235a44dabbe989f0587c36,
+    type: 3}
+  PlayerPrefab2: {fileID: 1785991368070624057, guid: 040be4a6f816b814b82bd38e9e66fc72,
     type: 3}
 --- !u!1 &963194225
 GameObject:
