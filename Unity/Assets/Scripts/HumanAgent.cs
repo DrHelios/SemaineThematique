@@ -11,12 +11,12 @@ public class HumanAgent : IAgent
             return 3;
         }
         
-        if (Input.GetKey(KeyCode.LeftArrow))
+        if (Input.GetKey(KeyCode.Z))
         {
             return 1;
         }
         
-        if (Input.GetKey(KeyCode.RightArrow))
+        if (Input.GetKey(KeyCode.S))
         {
             return 2;
         }

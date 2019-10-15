@@ -121,12 +121,15 @@ public static class SpaceInvadersGameStateRules
                 return;
             case 1: // LEFT
             {
-                gs.playerPosition += Vector2.left * SpaceInvadersGameState.playerSpeed;
+                Debug.Log("up");
+                gs.playerPosition += Vector2.up * SpaceInvadersGameState.playerSpeed;
                 break;
             }
             case 2: // RIGHT
             {
-                gs.playerPosition += Vector2.right * SpaceInvadersGameState.playerSpeed;
+                Debug.Log("down");
+
+                gs.playerPosition += Vector2.down * SpaceInvadersGameState.playerSpeed;
                 break;
             }
             case 3: // SHOOT

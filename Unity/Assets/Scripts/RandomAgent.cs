@@ -9,8 +9,13 @@ public interface IAgent
 public struct RandomAgent : IAgent
 {
     public Unity.Mathematics.Random rdm;
-    
+    //rdm = new Unity.Mathematics.Random();
+
     public int Act(ref SpaceInvadersGameState gs, NativeArray<int> availableActions)
     {
+        
         return availableActions[rdm.NextInt(0, availableActions.Length)];
-    }}
+    }
+    
+}
+
