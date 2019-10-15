@@ -18,6 +18,7 @@ public struct SpaceInvadersGameState
     public NativeList<Projectile> projectiles;
 
     public Vector2 playerPosition;
+    public Vector2 playerPosition2;
     public long lastShootStep;
     public long currentGameStep;
     public bool isGameOver;

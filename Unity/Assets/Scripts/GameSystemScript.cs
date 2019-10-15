@@ -9,6 +9,7 @@ public class GameSystemScript : MonoBehaviour
     public GameObject EnemyPrefab;
     public GameObject ProjectilePrefab;
     public GameObject PlayerPrefab;
+    public GameObject PlayerPrefab2;
 
     private SpaceInvadersGameState gs;
 
@@ -23,6 +24,8 @@ public class GameSystemScript : MonoBehaviour
         Rules.Init(ref gs);
 
         playerView = Instantiate(PlayerPrefab).GetComponent<Transform>();
+        playerView = Instantiate(PlayerPrefab2).GetComponent<Transform>();
+
 //        agent = new RandomAgent();
 //        agent = new HumanAgent();
         agent = new RandomRolloutAgent();

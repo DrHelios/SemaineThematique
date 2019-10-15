@@ -20,6 +20,7 @@ public static class SpaceInvadersGameStateRules
 
         gs.projectiles = new NativeList<Projectile>(100, Allocator.Persistent);
         gs.playerPosition = new Vector2(0f, 0f);
+        gs.playerPosition2 = new Vector2(0f, 0f);
         gs.isGameOver = false;
         gs.lastShootStep = -SpaceInvadersGameState.shootDelay;
         gs.playerScore = 0;
@@ -66,10 +67,13 @@ public static class SpaceInvadersGameStateRules
         for (var i = 0; i < gs.projectiles.Length; i++)
         {
             var sqrDistance = (gs.projectiles[i].position - gs.playerPosition).sqrMagnitude;
+            var sqrDistancePly2 = (gs.projectiles[i].position - gs.playerPosition2).sqrMagnitude;
 
             if (!(sqrDistance
                   <= Mathf.Pow(SpaceInvadersGameState.projectileRadius + SpaceInvadersGameState.playerRadius,
-                      2)))
+                      2))&& !(sqrDistancePly2
+                              <= Mathf.Pow(SpaceInvadersGameState.projectileRadius + SpaceInvadersGameState.playerRadius,
+                                  2)))
             {
                 continue;
             }
@@ -121,15 +125,12 @@ public static class SpaceInvadersGameStateRules
                 return;
             case 1: // LEFT
             {
-                Debug.Log("up");
-                gs.playerPosition += Vector2.up * SpaceInvadersGameState.playerSpeed;
+                gs.playerPosition += Vector2.up * 0.5f;
                 break;
             }
             case 2: // RIGHT
             {
-                Debug.Log("down");
-
-                gs.playerPosition += Vector2.down * SpaceInvadersGameState.playerSpeed;
+                gs.playerPosition += Vector2.down * 0.5f;
                 break;
             }
             case 3: // SHOOT
