@@ -23,6 +23,8 @@ public static class SpaceInvadersGameStateRules
         gs.playerPosition2 = new Vector2(8f, 5f);
         gs.isGameOver = false;
         gs.lastShootStep = -SpaceInvadersGameState.shootDelay;
+        gs.lastShootStep2 = -SpaceInvadersGameState.shootDelay;
+
         gs.playerScore = 0;
     }
 
@@ -41,38 +43,6 @@ public static class SpaceInvadersGameStateRules
         HandleCollisions(ref gs);
         HandleEnemyAtBottom(ref gs);
         gs.currentGameStep += 1;
-    }
-
-    static void HandleSecondAgentInputs(ref SpaceInvadersGameState gs, int chosenPlayerAction)
-    {
-        switch (chosenPlayerAction)
-        {
-            case 5: // LEFT
-            {
-                gs.playerPosition2 += Vector2.up * 0.5f;
-                break;
-            }
-            case 6: // RIGHT
-            {
-                gs.playerPosition2 += Vector2.down * 0.5f;
-                break;
-            }
-            case 7: // SHOOT
-            {
-                if (gs.currentGameStep - gs.lastShootStep < SpaceInvadersGameState.shootDelay)
-                {
-                    break;
-                }
-
-                gs.lastShootStep = gs.currentGameStep;
-                gs.projectiles.Add(new Projectile
-                {
-                    position = gs.playerPosition2 + Vector2.left * 1.3f,
-                    speed = Vector2.left * SpaceInvadersGameState.projectileSpeed
-                });
-                break;
-            }
-        }
     }
 
     static void UpdateEnemyPositions(ref SpaceInvadersGameState gs)
@@ -174,6 +144,8 @@ public static class SpaceInvadersGameStateRules
                 }
 
                 gs.lastShootStep = gs.currentGameStep;
+                //gs.lastShootStep2 = gs.currentGameStep;
+
                 gs.projectiles.Add(new Projectile
                 {
                     position = gs.playerPosition + Vector2.right * 1.3f,
@@ -184,6 +156,40 @@ public static class SpaceInvadersGameStateRules
         }
     }
 
+    static void HandleSecondAgentInputs(ref SpaceInvadersGameState gs, int chosenPlayerAction)
+    {
+        switch (chosenPlayerAction)
+        {
+            case 5: // LEFT
+            {
+                gs.playerPosition2 += Vector2.up * 0.5f;
+                break;
+            }
+            case 6: // RIGHT
+            {
+                gs.playerPosition2 += Vector2.down * 0.5f;
+                break;
+            }
+            case 7: // SHOOT
+            {
+                if (gs.currentGameStep - gs.lastShootStep2 < SpaceInvadersGameState.shootDelay)
+                {
+                    break;
+                }
+
+               // gs.lastShootStep = gs.currentGameStep;
+                gs.lastShootStep2 = gs.currentGameStep;
+
+                gs.projectiles.Add(new Projectile
+                {
+                    position = gs.playerPosition2 + Vector2.left * 1.3f,
+                    speed = Vector2.left * SpaceInvadersGameState.projectileSpeed
+                });
+                break;
+            }
+        }
+    }
+    
     static void HandleEnemyAtBottom(ref SpaceInvadersGameState gs)
     {
         for (var i = 0; i < gs.enemies.Length; i++)
@@ -219,6 +225,7 @@ public static class SpaceInvadersGameStateRules
         gsCopy.currentGameStep = gs.currentGameStep;
         gsCopy.isGameOver = gs.isGameOver;
         gsCopy.lastShootStep = gs.lastShootStep;
+        gsCopy.lastShootStep2 = gs.lastShootStep2;
         gsCopy.playerScore = gs.playerScore;
 
         return gsCopy;
@@ -234,6 +241,7 @@ public static class SpaceInvadersGameStateRules
         gsCopy.playerPosition = gs.playerPosition;
         gsCopy.currentGameStep = gs.currentGameStep;
         gsCopy.lastShootStep = gs.lastShootStep;
+        gsCopy.lastShootStep2 = gs.lastShootStep2;
         gsCopy.isGameOver = gs.isGameOver;
         gsCopy.playerScore = gs.playerScore;
     }

@@ -30,8 +30,8 @@ public class GameSystemScript : MonoBehaviour
         playerView2 = Instantiate(PlayerPrefab2).GetComponent<Transform>();
 
 //        agent = new RandomAgent();
-        //agent = new HumanAgent();
-        agent = new RandomRolloutAgent();
+        agent = new HumanAgent();
+       // agent = new RandomRolloutAgent();
         agent2 = new HumanAgent();
         gs.sndPlayer = true;
         //agent = new RandomRolloutAgent();
