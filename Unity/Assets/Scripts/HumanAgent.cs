@@ -24,7 +24,6 @@ public class HumanAgent : IAgent
         }
         if (Input.GetKey(KeyCode.UpArrow)&& gs.sndPlayer&&plyId==2)
         {
-            Debug.Log(gs.sndPlayer);
             return 5;
         }
         

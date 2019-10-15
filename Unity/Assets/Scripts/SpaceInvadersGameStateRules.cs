@@ -82,7 +82,7 @@ public static class SpaceInvadersGameStateRules
                 if( gs.iaScore >= 3)
                 {
                     gs.isGameOver = true;
-                    Debug.Log("j2 win");
+                    //Debug.Log("j2 win");
                 }
                 else {continue;}
             }
@@ -95,7 +95,7 @@ public static class SpaceInvadersGameStateRules
                 if( gs.playerScore >= 3)
                 { 
                     gs.isGameOver = true;
-                    Debug.Log("j1 win");
+                    //Debug.Log("j1 win");
                 }
                 else {continue;}
             }
