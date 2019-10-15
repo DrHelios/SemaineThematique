@@ -26,6 +26,7 @@ public static class SpaceInvadersGameStateRules
         gs.lastShootStep2 = -SpaceInvadersGameState.shootDelay;
 
         gs.playerScore = 0;
+        gs.iaScore = 0;
     }
 
 
@@ -72,16 +73,32 @@ public static class SpaceInvadersGameStateRules
             var sqrDistance = (gs.projectiles[i].position - gs.playerPosition).sqrMagnitude;
             var sqrDistancePly2 = (gs.projectiles[i].position - gs.playerPosition2).sqrMagnitude;
 
-            if (!(sqrDistance
-                  <= Mathf.Pow(SpaceInvadersGameState.projectileRadius + SpaceInvadersGameState.playerRadius,
-                      2))&& !(sqrDistancePly2
-                              <= Mathf.Pow(SpaceInvadersGameState.projectileRadius + SpaceInvadersGameState.playerRadius,
-                                  2)))
+            if (sqrDistance
+                  <= Mathf.Pow(SpaceInvadersGameState.projectileRadius + SpaceInvadersGameState.playerRadius, 2))
             {
-                continue;
+                gs.iaScore += 1;
+                gs.projectiles.RemoveAtSwapBack(i);
+                i--;
+                if( gs.iaScore >= 3)
+                {
+                    gs.isGameOver = true;
+                    Debug.Log("j2 win");
+                }
+                else {continue;}
             }
-
-            gs.isGameOver = true;
+            if (sqrDistancePly2
+                  <= Mathf.Pow(SpaceInvadersGameState.projectileRadius + SpaceInvadersGameState.playerRadius, 2))
+            {
+                gs.playerScore += 1;
+                gs.projectiles.RemoveAtSwapBack(i);
+                i--;
+                if( gs.playerScore >= 3)
+                { 
+                    gs.isGameOver = true;
+                    Debug.Log("j1 win");
+                }
+                else {continue;}
+            }
             return;
         }
 
@@ -109,7 +126,7 @@ public static class SpaceInvadersGameStateRules
                 i--;
                 gs.enemies.RemoveAtSwapBack(j);
                 j--;
-                gs.playerScore += 100;
+               gs.playerScore += 100;
                 break;
             }
         }
@@ -243,6 +260,6 @@ public static class SpaceInvadersGameStateRules
         gsCopy.lastShootStep = gs.lastShootStep;
         gsCopy.lastShootStep2 = gs.lastShootStep2;
         gsCopy.isGameOver = gs.isGameOver;
-        gsCopy.playerScore = gs.playerScore;
+        //gsCopy.playerScore = gs.playerScore;
     }
 }
