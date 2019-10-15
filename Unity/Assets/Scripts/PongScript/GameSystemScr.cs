@@ -22,7 +22,8 @@ public class GameSystemScr : MonoBehaviour
 
         playerView = Instantiate(PlayerPrefab).GetComponent<Transform>();
 //        bot = new RandomAgent();
-          bot = new HumanBot();
+          //bot = new HumanBot();
+          bot = new RandomBot();
         //bot = new RandomRolloutAgent();
     }
 

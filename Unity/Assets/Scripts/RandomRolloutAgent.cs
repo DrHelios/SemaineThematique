@@ -1,27 +1,41 @@
+using Unity.Burst;
 using Unity.Collections;
+using Unity.Jobs;
+using UnityEngine;
+using Random = Unity.Mathematics.Random;
 using Rules = SpaceInvadersGameStateRules;
 
 public class RandomRolloutAgent : IAgent
 {
-    public int Act(ref SpaceInvadersGameState gs, int[] availableActions)
+    [BurstCompile]
+    struct RandomRolloutJob : IJobParallelFor
     {
-        var epochs = 10;
-        var agent = new RandomAgent();
+        public SpaceInvadersGameState gs;
 
-        var summedScores = new NativeArray<long>(availableActions.Length, Allocator.Temp);
+        [ReadOnly]
+        public NativeArray<int> availableActions;
 
-        for (var i = 0; i < availableActions.Length; i++)
+        public RandomAgent rdmAgent;
+
+        [WriteOnly]
+        public NativeArray<long> summedScores;
+
+        public void Execute(int index)
         {
+            var epochs = 100;
+            var agent = rdmAgent;
+
+            var gsCopy = Rules.Clone(ref gs);
+
             for (var n = 0; n < epochs; n++)
             {
-                var gsCopy = Rules.Clone(ref gs);
-
-                Rules.Step(ref gsCopy, availableActions[i]);
+                Rules.CopyTo(ref gs, ref gsCopy);
+                Rules.Step(ref gsCopy, availableActions[index]);
 
                 var currentDepth = 0;
                 while (!gsCopy.isGameOver)
                 {
-                    Rules.Step(ref gsCopy, agent.Act(ref gsCopy, Rules.GetAvailableActions(ref gsCopy)));
+                    Rules.Step(ref gsCopy, agent.Act(ref gsCopy, availableActions));
                     currentDepth++;
                     if (currentDepth > 500)
                     {
@@ -29,27 +43,40 @@ public class RandomRolloutAgent : IAgent
                     }
                 }
 
-                summedScores[i] += gsCopy.playerScore;
-                gsCopy.enemies.Dispose();
-                gsCopy.projectiles.Dispose();
+                summedScores[index] += gsCopy.playerScore;
             }
         }
+    }
+
+    public int Act(ref SpaceInvadersGameState gs, NativeArray<int> availableActions)
+    {
+        var job = new RandomRolloutJob
+        {
+            availableActions = availableActions,
+            gs = gs,
+            summedScores = new NativeArray<long>(availableActions.Length, Allocator.TempJob),
+            rdmAgent = new RandomAgent {rdm = new Random((uint) Time.frameCount)}
+        };
+
+        var handle = job.Schedule(availableActions.Length, 1);
+        handle.Complete();
 
         var bestActionIndex = -1;
         var bestScore = long.MinValue;
-        for (var i = 0; i < summedScores.Length; i++)
+        for (var i = 0; i < job.summedScores.Length; i++)
         {
-            if (bestScore > summedScores[i])
+            if (bestScore > job.summedScores[i])
             {
                 continue;
             }
 
-            bestScore = summedScores[i];
+            bestScore = job.summedScores[i];
             bestActionIndex = i;
         }
-        
-        summedScores.Dispose();
 
-        return availableActions[bestActionIndex];
+        var chosenAction = availableActions[bestActionIndex];
+
+        job.summedScores.Dispose();
+        return chosenAction;
     }
 }

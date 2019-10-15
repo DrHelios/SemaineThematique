@@ -181,8 +181,20 @@ public static class GameStateRules
         gsCopy.playerPos = gs.playerPos;
         gsCopy.currentGameStep = gs.currentGameStep;
         gsCopy.isGameOver = gs.isGameOver;
-        gsCopy.lastShootStep = gsCopy.lastShootStep;
+        gsCopy.lastShootStep = gs.lastShootStep;
 
         return gsCopy;
+    }
+    public static void CopyTo(ref GameStateScr gs, ref SpaceInvadersGameState gsCopy)
+    {
+        gsCopy.enemies.Clear();
+        gsCopy.enemies.AddRange(gs.enemies);
+        gsCopy.projectiles.Clear();
+        gsCopy.projectiles.AddRange(gs.projectiles);
+        gsCopy.playerPosition = gs.playerPosition;
+        gsCopy.currentGameStep = gs.currentGameStep;
+        gsCopy.lastShootStep = gs.lastShootStep;
+        gsCopy.isGameOver = gs.isGameOver;
+        gsCopy.playerScore = gs.playerScore;
     }
 }
