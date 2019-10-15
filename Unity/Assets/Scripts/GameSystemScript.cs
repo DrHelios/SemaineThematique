@@ -51,7 +51,7 @@ public class GameSystemScript : MonoBehaviour
         playerView2.position = gs.playerPosition2;
 
 
-        Rules.Step(ref gs, agent.Act(ref gs, availableActions),agent2.Act(ref gs, availableActions));
+        Rules.Step(ref gs, agent.Act(ref gs, availableActions, 1),agent2.Act(ref gs, availableActions, 2));
     }
 
     private void SyncEnemyViews()

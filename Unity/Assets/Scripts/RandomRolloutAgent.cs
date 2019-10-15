@@ -35,7 +35,7 @@ public class RandomRolloutAgent : IAgent
                 var currentDepth = 0;
                 while (!gsCopy.isGameOver)
                 {
-                    Rules.Step(ref gsCopy, agent.Act(ref gsCopy, availableActions),agent.Act(ref gsCopy, availableActions));
+                    Rules.Step(ref gsCopy, agent.Act(ref gsCopy, availableActions, 1),agent.Act(ref gsCopy, availableActions, 2));
                     currentDepth++;
                     if (currentDepth > 500)
                     {
@@ -48,7 +48,7 @@ public class RandomRolloutAgent : IAgent
         }
     }
 
-    public int Act(ref SpaceInvadersGameState gs, NativeArray<int> availableActions)
+    public int Act(ref SpaceInvadersGameState gs, NativeArray<int> availableActions, int plyId)
     {
         var job = new RandomRolloutJob
         {
