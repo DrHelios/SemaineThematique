@@ -17,6 +17,10 @@ public struct SpaceInvadersGameState
     [NativeDisableParallelForRestriction]
     public NativeList<Projectile> projectiles;
 
+    [NativeDisableParallelForRestriction]
+    public NativeList<Projectile> bulletIa;
+    public long iaScore;
+    
     public Vector2 playerPosition;
     public Vector2 playerPosition2;
     public long lastShootStep;
