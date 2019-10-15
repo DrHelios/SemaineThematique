@@ -33,7 +33,7 @@ public class HumanAgent : IAgent
             return 6;
         }
         
-        if (Input.GetKey(KeyCode.Space)&& gs.sndPlayer&&plyId==2)
+        if (Input.GetKey(KeyCode.KeypadEnter)&& gs.sndPlayer&&plyId==2)
         {
             return 7;
         }

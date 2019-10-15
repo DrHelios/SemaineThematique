@@ -19,8 +19,8 @@ public static class SpaceInvadersGameStateRules
         }*/
 
         gs.projectiles = new NativeList<Projectile>(100, Allocator.Persistent);
-        gs.playerPosition = new Vector2(0f, 0f);
-        gs.playerPosition2 = new Vector2(0f, 5f);
+        gs.playerPosition = new Vector2(-8f, 5f);
+        gs.playerPosition2 = new Vector2(8f, 5f);
         gs.isGameOver = false;
         gs.lastShootStep = -SpaceInvadersGameState.shootDelay;
         gs.playerScore = 0;
@@ -67,8 +67,8 @@ public static class SpaceInvadersGameStateRules
                 gs.lastShootStep = gs.currentGameStep;
                 gs.projectiles.Add(new Projectile
                 {
-                    position = gs.playerPosition2 + Vector2.up * 1.3f,
-                    speed = Vector2.up * SpaceInvadersGameState.projectileSpeed
+                    position = gs.playerPosition2 + Vector2.left * 1.3f,
+                    speed = Vector2.left * SpaceInvadersGameState.projectileSpeed
                 });
                 break;
             }
@@ -176,8 +176,8 @@ public static class SpaceInvadersGameStateRules
                 gs.lastShootStep = gs.currentGameStep;
                 gs.projectiles.Add(new Projectile
                 {
-                    position = gs.playerPosition + Vector2.up * 1.3f,
-                    speed = Vector2.up * SpaceInvadersGameState.projectileSpeed
+                    position = gs.playerPosition + Vector2.right * 1.3f,
+                    speed = Vector2.right * SpaceInvadersGameState.projectileSpeed
                 });
                 break;
             }
