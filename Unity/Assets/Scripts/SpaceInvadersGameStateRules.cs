@@ -68,50 +68,89 @@ public static class SpaceInvadersGameStateRules
 
     static void HandleCollisions(ref SpaceInvadersGameState gs)
     {
-        for (var i = 0; i < gs.projectiles.Length; i++)
+        /*for (var i = 0; i < gs.projectiles.Length; i++)
         {
-            var sqrDistance = (gs.projectiles[i].position - gs.playerPosition).sqrMagnitude;
-            var sqrDistancePly2 = (gs.projectiles[i].position - gs.playerPosition2).sqrMagnitude;
-
-            if (sqrDistance
-                  <= Mathf.Pow(SpaceInvadersGameState.projectileRadius + SpaceInvadersGameState.playerRadius, 2))
-            {
-                gs.iaScore += 1;
-                gs.projectiles.RemoveAtSwapBack(i);
-                i--;
-                if( gs.iaScore >= 3)
-                {
-                    gs.isGameOver = true;
-                    //Debug.Log("j2 win");
-                }
-                else {continue;}
-            }
-            if (sqrDistancePly2
-                  <= Mathf.Pow(SpaceInvadersGameState.projectileRadius + SpaceInvadersGameState.playerRadius, 2))
-            {
-                gs.playerScore += 1;
-                gs.projectiles.RemoveAtSwapBack(i);
-                i--;
-                if( gs.playerScore >= 3)
-                { 
-                    gs.isGameOver = true;
-                    //Debug.Log("j1 win");
-                }
-                else {continue;}
-            }
-            return;
-        }
-
-        for (var i = 0; i < gs.projectiles.Length; i++)
-        {
-            if (gs.projectiles[i].position.y > 10)
+            if (gs.projectiles[i].position.x > 10 || gs.projectiles[i].position.x < -10)
             {
                 gs.projectiles.RemoveAtSwapBack(i);
                 i--;
                 continue;
             }
+            
+            var sqrDistance = (gs.projectiles[i].position - gs.playerPosition).sqrMagnitude;
+            var sqrDistancePly2 = (gs.projectiles[i].position - gs.playerPosition2).sqrMagnitude;
+    
+            if (sqrDistance
+                      <= Mathf.Pow(SpaceInvadersGameState.projectileRadius + SpaceInvadersGameState.playerRadius, 2))
+            {
+                gs.iaScore += 1;
+                gs.projectiles.RemoveAtSwapBack(i);
+                i--;
+                if(gs.iaScore >= 3)
+                {
+                    gs.isGameOver = true;
+                    //Debug.Log("j2 win");
+                }
+                //else {continue;}
+            }
+                
+            if (sqrDistancePly2
+                <= Mathf.Pow(SpaceInvadersGameState.projectileRadius + SpaceInvadersGameState.playerRadius, 2))
+            {
+                gs.playerScore += 1;
+                gs.projectiles.RemoveAtSwapBack(i);
+                i--;
+                if(gs.playerScore >= 3)
+                { 
+                    gs.isGameOver = true;
+                    //Debug.Log("j1 win");
+                }
+                //else {continue;}
+            }
 
-            for (var j = 0; j < gs.enemies.Length; j++)
+            return;
+        } */
+        
+        for (var i = 0; i < gs.projectiles.Length; i++)
+        {
+            if (gs.projectiles[i].position.x > 10 || gs.projectiles[i].position.x < -10)
+            {
+                gs.projectiles.RemoveAtSwapBack(i);
+                i--;
+                continue;
+            }
+            
+            var sqrDistance = (gs.projectiles[i].position - gs.playerPosition).sqrMagnitude;
+            var sqrDistancePly2 = (gs.projectiles[i].position - gs.playerPosition2).sqrMagnitude;
+
+            if (sqrDistance
+                  <= Mathf.Pow(SpaceInvadersGameState.projectileRadius + SpaceInvadersGameState.playerRadius,
+                      2))
+            {
+                gs.iaScore += 1;
+                gs.projectiles.RemoveAtSwapBack(i);
+                i--;
+                if(gs.iaScore >= 3)
+                {
+                    gs.isGameOver = true;
+                }
+                break;
+            }
+            
+            if (sqrDistancePly2
+                <= Mathf.Pow(SpaceInvadersGameState.projectileRadius + SpaceInvadersGameState.playerRadius,
+                    2))
+            {
+                gs.playerScore += 1;
+                gs.projectiles.RemoveAtSwapBack(i);
+                i--;
+                if(gs.playerScore >= 3)
+                { 
+                    gs.isGameOver = true;
+                }
+                break;
+            }
+            /*for (var j = 0; j < gs.enemies.Length; j++)
             {
                 var sqrDistance = (gs.projectiles[i].position - gs.enemies[j].position).sqrMagnitude;
 
@@ -126,9 +165,9 @@ public static class SpaceInvadersGameStateRules
                 i--;
                 gs.enemies.RemoveAtSwapBack(j);
                 j--;
-               gs.playerScore += 100;
+               //gs.playerScore += 100;
                 break;
-            }
+            }*/
         }
 
         /*if (gs.enemies.Length == 0)
@@ -141,16 +180,24 @@ public static class SpaceInvadersGameStateRules
     {
         switch (chosenPlayerAction)
         {
-            case 0: // DO NOTHING
+            case 0: // IDLE
                 return;
-            case 1: // LEFT
+            case 1: // UP
             {
-                gs.playerPosition += Vector2.up * SpaceInvadersGameState.enemySpeed * 4;
+                if (gs.playerPosition2.y < 8.5f)
+                {
+                    gs.playerPosition += Vector2.up * SpaceInvadersGameState.enemySpeed * 4;
+                }
+
                 break;
             }
-            case 2: // RIGHT
+            case 2: // DOWN
             {
-                gs.playerPosition += Vector2.down * SpaceInvadersGameState.enemySpeed * 4;
+                if (gs.playerPosition2.y > 0.5f)
+                {
+                    gs.playerPosition += Vector2.down * SpaceInvadersGameState.enemySpeed * 4;
+                }
+
                 break;
             }
             case 3: // SHOOT
@@ -177,14 +224,24 @@ public static class SpaceInvadersGameStateRules
     {
         switch (chosenPlayerAction)
         {
-            case 5: // LEFT
+            case 0: // DO NOTHING
+                return;
+            case 5: // UP
             {
-                gs.playerPosition2 += Vector2.up * SpaceInvadersGameState.enemySpeed * 4;
+                if (gs.playerPosition2.y < 8.5f)
+                {
+                    gs.playerPosition2 += Vector2.up * SpaceInvadersGameState.enemySpeed * 4;
+                }
+
                 break;
             }
-            case 6: // RIGHT
+            case 6: // DOWN
             {
-                gs.playerPosition2 += Vector2.down * SpaceInvadersGameState.enemySpeed * 4;
+                if (gs.playerPosition2.y > 0.5f)
+                {
+                    gs.playerPosition2 += Vector2.down * SpaceInvadersGameState.enemySpeed * 4;
+                }
+
                 break;
             }
             case 7: // SHOOT
@@ -192,9 +249,8 @@ public static class SpaceInvadersGameStateRules
                 if (gs.currentGameStep - gs.lastShootStep2 < SpaceInvadersGameState.shootDelay)
                 {
                     break;
-                }
-
-               // gs.lastShootStep = gs.currentGameStep;
+                } 
+                // gs.lastShootStep = gs.currentGameStep;
                 gs.lastShootStep2 = gs.currentGameStep;
 
                 gs.projectiles.Add(new Projectile
@@ -223,7 +279,7 @@ public static class SpaceInvadersGameStateRules
 
     private static readonly int[] AvailableActions = new[]
     {
-        0, 1, 2, 3,4,5,6,7
+        0, 1, 2, 3, 4, 5, 6, 7
     };
 
     public static int[] GetAvailableActions(ref SpaceInvadersGameState gs)
