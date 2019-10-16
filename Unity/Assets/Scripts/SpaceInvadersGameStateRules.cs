@@ -8,16 +8,6 @@ public static class SpaceInvadersGameStateRules
     public static void Init(ref SpaceInvadersGameState gs)
     {
         gs.enemies = new NativeList<Enemy>(10, Allocator.Persistent);
-        /*for (var i = 0; i < 10; i++)
-        {
-            var enemy = new Enemy
-            {
-                position = new Vector2(i - 4.5f, 9f),
-                speed = new Vector2(0f, -SpaceInvadersGameState.enemySpeed)
-            };
-            gs.enemies.Add(enemy);
-        }*/
-
         gs.projectiles = new NativeList<Projectile>(100, Allocator.Persistent);
         gs.playerPosition = new Vector2(-8f, 5f);
         gs.playerPosition2 = new Vector2(8f, 5f);
@@ -68,49 +58,6 @@ public static class SpaceInvadersGameStateRules
 
     static void HandleCollisions(ref SpaceInvadersGameState gs)
     {
-        /*for (var i = 0; i < gs.projectiles.Length; i++)
-        {
-            if (gs.projectiles[i].position.x > 10 || gs.projectiles[i].position.x < -10)
-            {
-                gs.projectiles.RemoveAtSwapBack(i);
-                i--;
-                continue;
-            }
-            
-            var sqrDistance = (gs.projectiles[i].position - gs.playerPosition).sqrMagnitude;
-            var sqrDistancePly2 = (gs.projectiles[i].position - gs.playerPosition2).sqrMagnitude;
-    
-            if (sqrDistance
-                      <= Mathf.Pow(SpaceInvadersGameState.projectileRadius + SpaceInvadersGameState.playerRadius, 2))
-            {
-                gs.iaScore += 1;
-                gs.projectiles.RemoveAtSwapBack(i);
-                i--;
-                if(gs.iaScore >= 3)
-                {
-                    gs.isGameOver = true;
-                    //Debug.Log("j2 win");
-                }
-                //else {continue;}
-            }
-                
-            if (sqrDistancePly2
-                <= Mathf.Pow(SpaceInvadersGameState.projectileRadius + SpaceInvadersGameState.playerRadius, 2))
-            {
-                gs.playerScore += 1;
-                gs.projectiles.RemoveAtSwapBack(i);
-                i--;
-                if(gs.playerScore >= 3)
-                { 
-                    gs.isGameOver = true;
-                    //Debug.Log("j1 win");
-                }
-                //else {continue;}
-            }
-
-            return;
-        } */
-        
         for (var i = 0; i < gs.projectiles.Length; i++)
         {
             if (gs.projectiles[i].position.x > 10 || gs.projectiles[i].position.x < -10)
@@ -152,30 +99,9 @@ public static class SpaceInvadersGameStateRules
                 }
                 break;
             }
-            /*for (var j = 0; j < gs.enemies.Length; j++)
-            {
-                var sqrDistance = (gs.projectiles[i].position - gs.enemies[j].position).sqrMagnitude;
-
-                if (!(sqrDistance
-                      <= Mathf.Pow(SpaceInvadersGameState.projectileRadius + SpaceInvadersGameState.enemyRadius,
-                          2)))
-                {
-                    continue;
-                }
-
-                gs.projectiles.RemoveAtSwapBack(i);
-                i--;
-                gs.enemies.RemoveAtSwapBack(j);
-                j--;
-               //gs.playerScore += 100;
-                break;
-            }*/
         }
 
-        /*if (gs.enemies.Length == 0)
-        {
-            gs.isGameOver = true;
-        }*/
+
     }
 
     static void HandleAgentInputs(ref SpaceInvadersGameState gs, int chosenPlayerAction)
@@ -303,6 +229,7 @@ public static class SpaceInvadersGameStateRules
         gsCopy.lastShootStep = gs.lastShootStep;
         gsCopy.lastShootStep2 = gs.lastShootStep2;
         gsCopy.playerScore = gs.playerScore;
+        gsCopy.iaScore = gs.iaScore;
 
         return gsCopy;
     }
@@ -320,6 +247,7 @@ public static class SpaceInvadersGameStateRules
         gsCopy.lastShootStep = gs.lastShootStep;
         gsCopy.lastShootStep2 = gs.lastShootStep2;
         gsCopy.isGameOver = gs.isGameOver;
-        //gsCopy.playerScore = gs.playerScore;
+        gsCopy.playerScore = gs.playerScore;
+        gsCopy.iaScore = gs.iaScore;
     }
 }

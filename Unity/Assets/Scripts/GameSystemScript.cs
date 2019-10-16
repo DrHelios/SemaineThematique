@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using Unity.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using Rules = SpaceInvadersGameStateRules;
 
 public class GameSystemScript : MonoBehaviour
@@ -52,6 +54,15 @@ public class GameSystemScript : MonoBehaviour
         playerView2.GetChild(0).GetComponent<MeshRenderer>().material.color = gs.playerColor2;
         if (gs.isGameOver)
         {
+            if (gs.iaScore >= 3)
+            {
+                ApplicationData.gameOverText= "GameOver !!! Tu as perdu, tu t'es fait battre par l'IA";
+            }
+            if (gs.playerScore >= 3)
+            {
+                ApplicationData.gameOverText = "GameOver !!! Tu as Gagné, tu viens de battre  l'IA";
+            }
+            SceneManager.LoadScene("GameOver");
             return;
         }
 
