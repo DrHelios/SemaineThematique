@@ -30,7 +30,7 @@ public class RandomRolloutAgent : IAgent
             for (var n = 0; n < epochs; n++)
             {
                 Rules.CopyTo(ref gs, ref gsCopy);
-                Rules.Step(ref gsCopy, availableActions[index],availableActions[index]);
+                Rules.Step(ref gsCopy, availableActions[index],availableActions[index + 1]);
 
                 var currentDepth = 0;
                 while (!gsCopy.isGameOver)
@@ -42,8 +42,9 @@ public class RandomRolloutAgent : IAgent
                         break;
                     }
                 }
-
                 summedScores[index] += gsCopy.playerScore;
+                summedScores[index + 1] += gsCopy.iaScore;
+
             }
         }
     }

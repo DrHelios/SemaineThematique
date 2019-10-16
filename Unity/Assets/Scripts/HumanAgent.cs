@@ -37,7 +37,6 @@ public class HumanAgent : IAgent
             return 7;
         }
         
-
         return 0;
     }
 }

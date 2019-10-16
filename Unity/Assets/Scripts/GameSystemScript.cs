@@ -19,8 +19,11 @@ public class GameSystemScript : MonoBehaviour
     private readonly List<Transform> enemiesView = new List<Transform>();
     private readonly List<Transform> projectilesView = new List<Transform>();
     private NativeArray<int> availableActions;
+    private NativeArray<int> availableActions2;
     private Transform playerView;
     private Transform playerView2;
+    private MeshRenderer playerMesh;
+    private MeshRenderer playerMesh2;
     private IAgent agent;
     private IAgent agent2;
 
@@ -36,22 +39,28 @@ public class GameSystemScript : MonoBehaviour
         //agent2 = new RandomAgent {rdm = new Unity.Mathematics.Random((uint) Time.frameCount)};
         
         agent = new RandomRolloutAgent();
-        //agent2 = new RandomRolloutAgent();
+        agent2 = new RandomRolloutAgent();
         
         //agent = new HumanAgent();
-        agent2 = new HumanAgent();
+        //agent2 = new HumanAgent();
         
         // Plus utilisé
         gs.playerColor = Color.cyan;
         gs.playerColor2 = Color.cyan;
+        /*playerMesh = playerView.GetChild(0).GetComponent<MeshRenderer>();
+        playerMesh2 = playerView2.GetChild(0).GetComponent<MeshRenderer>();*/
 
         gs.sndPlayer = true;
         availableActions =
             new NativeArray<int>(SpaceInvadersGameStateRules.GetAvailableActions(ref gs), Allocator.Persistent);
+        availableActions2 =
+            new NativeArray<int>(SpaceInvadersGameStateRules.GetAvailableActions2(ref gs), Allocator.Persistent);
     }
 
     void Update()
     {
+        /*playerMesh.material.color = gs.playerColor;
+        playerMesh2.material.color = gs.playerColor2;*/
         // Plus utilisé
         //playerView.GetChild(0).GetComponent<MeshRenderer>().material.color = gs.playerColor;
         //playerView2.GetChild(0).GetComponent<MeshRenderer>().material.color = gs.playerColor2;
@@ -59,11 +68,11 @@ public class GameSystemScript : MonoBehaviour
         {
             if (gs.iaScore >= 3)
             {
-                ApplicationData.gameOverText= "GameOver !!! Tu as perdu, tu t'es fait battre par l'IA";
+                ApplicationData.gameOverText= "N°2 win";
             }
             if (gs.playerScore >= 3)
             {
-                ApplicationData.gameOverText = "GameOver !!! Tu as Gagné, tu viens de battre  l'IA";
+                ApplicationData.gameOverText = "N°1 win";
             }
             SceneManager.LoadScene("GameOver");
             return;
@@ -74,7 +83,7 @@ public class GameSystemScript : MonoBehaviour
         playerView.position = gs.playerPosition;
         playerView2.position = gs.playerPosition2;
 
-        Rules.Step(ref gs, agent.Act(ref gs, availableActions, 1),agent2.Act(ref gs, availableActions, 2));
+        Rules.Step(ref gs, agent.Act(ref gs, availableActions, 1),agent2.Act(ref gs, availableActions2, 2));
     }
 
     private void SyncEnemyViews()

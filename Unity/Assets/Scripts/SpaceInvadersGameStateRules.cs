@@ -32,7 +32,7 @@ public static class SpaceInvadersGameStateRules
         HandleAgentInputs(ref gs, chosenPlayerAction);
         HandleSecondAgentInputs(ref gs, chosenSecondPlayerInput);
         HandleCollisions(ref gs);
-        HandleEnemyAtBottom(ref gs);
+        //HandleEnemyAtBottom(ref gs);
         gs.currentGameStep += 1;
     }
 
@@ -112,7 +112,7 @@ public static class SpaceInvadersGameStateRules
                 return;
             case 1: // UP
             {
-                if (gs.playerPosition2.y < 8.5f)
+                if (gs.playerPosition.y < 8.5f)
                 {
                     gs.playerPosition += Vector2.up * SpaceInvadersGameState.enemySpeed * 4;
                 }
@@ -121,7 +121,7 @@ public static class SpaceInvadersGameStateRules
             }
             case 2: // DOWN
             {
-                if (gs.playerPosition2.y > 0.5f)
+                if (gs.playerPosition.y > 0.5f)
                 {
                     gs.playerPosition += Vector2.down * SpaceInvadersGameState.enemySpeed * 4;
                 }
@@ -148,9 +148,9 @@ public static class SpaceInvadersGameStateRules
         }
     }
 
-    static void HandleSecondAgentInputs(ref SpaceInvadersGameState gs, int chosenPlayerAction)
+    static void HandleSecondAgentInputs(ref SpaceInvadersGameState gs, int chosenPlayerAction2)
     {
-        switch (chosenPlayerAction)
+        switch (chosenPlayerAction2)
         {
             case 0: // DO NOTHING
                 return;
@@ -191,7 +191,7 @@ public static class SpaceInvadersGameStateRules
         }
     }
     
-    static void HandleEnemyAtBottom(ref SpaceInvadersGameState gs)
+    /*static void HandleEnemyAtBottom(ref SpaceInvadersGameState gs)
     {
         for (var i = 0; i < gs.enemies.Length; i++)
         {
@@ -203,16 +203,26 @@ public static class SpaceInvadersGameStateRules
             gs.isGameOver = true;
             return;
         }
-    }
+    }*/
 
     private static readonly int[] AvailableActions = new[]
     {
-        0, 1, 2, 3, 4, 5, 6, 7
+        0, 1, 2, 3,
+    };
+    
+    private static readonly int[] AvailableActions2 = new[]
+    {
+        0, 5, 6, 7,
     };
 
     public static int[] GetAvailableActions(ref SpaceInvadersGameState gs)
     {
         return AvailableActions;
+    }
+    
+    public static int[] GetAvailableActions2(ref SpaceInvadersGameState gs)
+    {
+        return AvailableActions2;
     }
 
     public static SpaceInvadersGameState Clone(ref SpaceInvadersGameState gs)
