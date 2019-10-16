@@ -50,8 +50,8 @@ public class GameSystemScript : MonoBehaviour
 
     void Update()
     {
-        playerView.GetChild(0).GetComponent<MeshRenderer>().material.color = gs.playerColor;
-        playerView2.GetChild(0).GetComponent<MeshRenderer>().material.color = gs.playerColor2;
+        //playerView.GetChild(0).GetComponent<MeshRenderer>().material.color = gs.playerColor;
+        //playerView2.GetChild(0).GetComponent<MeshRenderer>().material.color = gs.playerColor2;
         if (gs.isGameOver)
         {
             if (gs.iaScore >= 3)

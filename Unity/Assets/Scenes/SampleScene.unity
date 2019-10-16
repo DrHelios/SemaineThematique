@@ -166,11 +166,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EnemyPrefab: {fileID: 8886385396455887703, guid: a49be0991f235a44dabbe989f0587c36,
     type: 3}
-  ProjectilePrefab: {fileID: 1422531959741914303, guid: 66e7b5006d449694eb4716d0549ff96c,
+  ProjectilePrefab: {fileID: 2688955894241752702, guid: 894b361f6e3238a45a1ccafaae8bd27e,
     type: 3}
-  PlayerPrefab: {fileID: 8886385396455887703, guid: a49be0991f235a44dabbe989f0587c36,
+  PlayerPrefab: {fileID: 9105250983243665821, guid: 1b162540d286c9e4897e814f1c627bd6,
     type: 3}
-  PlayerPrefab2: {fileID: 1785991368070624057, guid: 040be4a6f816b814b82bd38e9e66fc72,
+  PlayerPrefab2: {fileID: 2223406875566593729, guid: 2adeab7d4783cfa448e92f3c9c23b89c,
     type: 3}
 --- !u!1 &963194225
 GameObject:
