@@ -132,6 +132,7 @@ public static class SpaceInvadersGameStateRules
                 i--;
                 if(gs.iaScore >= 3)
                 {
+                    gs.playerColor = Color.red;
                     gs.isGameOver = true;
                 }
                 break;
@@ -145,7 +146,8 @@ public static class SpaceInvadersGameStateRules
                 gs.projectiles.RemoveAtSwapBack(i);
                 i--;
                 if(gs.playerScore >= 3)
-                { 
+                {
+                    gs.playerColor2 = Color.red;
                     gs.isGameOver = true;
                 }
                 break;
@@ -295,6 +297,7 @@ public static class SpaceInvadersGameStateRules
         gsCopy.projectiles = new NativeList<Projectile>(gs.projectiles.Length, Allocator.Temp);
         gsCopy.projectiles.AddRange(gs.projectiles);
         gsCopy.playerPosition = gs.playerPosition;
+        gsCopy.playerPosition2 = gs.playerPosition2;
         gsCopy.currentGameStep = gs.currentGameStep;
         gsCopy.isGameOver = gs.isGameOver;
         gsCopy.lastShootStep = gs.lastShootStep;
@@ -312,6 +315,7 @@ public static class SpaceInvadersGameStateRules
         gsCopy.projectiles.Clear();
         gsCopy.projectiles.AddRange(gs.projectiles);
         gsCopy.playerPosition = gs.playerPosition;
+        gsCopy.playerPosition2 = gs.playerPosition2;
         gsCopy.currentGameStep = gs.currentGameStep;
         gsCopy.lastShootStep = gs.lastShootStep;
         gsCopy.lastShootStep2 = gs.lastShootStep2;

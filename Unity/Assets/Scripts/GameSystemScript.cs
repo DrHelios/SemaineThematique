@@ -29,15 +29,18 @@ public class GameSystemScript : MonoBehaviour
         playerView = Instantiate(PlayerPrefab).GetComponent<Transform>();
         playerView2 = Instantiate(PlayerPrefab2).GetComponent<Transform>();
 
-        agent = new RandomAgent {rdm = new Unity.Mathematics.Random((uint) Time.frameCount)};
-        agent2 = new RandomAgent {rdm = new Unity.Mathematics.Random((uint) Time.frameCount)};
+        //agent = new RandomAgent {rdm = new Unity.Mathematics.Random((uint) Time.frameCount)};
+        //agent2 = new RandomAgent {rdm = new Unity.Mathematics.Random((uint) Time.frameCount)};
         
-        //agent = new RandomRolloutAgent();
+        agent = new RandomRolloutAgent();
         //agent2 = new RandomRolloutAgent();
         
         //agent = new HumanAgent();
-        //agent2 = new HumanAgent();
+        agent2 = new HumanAgent();
         
+        gs.playerColor = Color.cyan;
+        gs.playerColor2 = Color.cyan;
+
         gs.sndPlayer = true;
         availableActions =
             new NativeArray<int>(SpaceInvadersGameStateRules.GetAvailableActions(ref gs), Allocator.Persistent);
@@ -45,6 +48,8 @@ public class GameSystemScript : MonoBehaviour
 
     void Update()
     {
+        playerView.GetChild(0).GetComponent<MeshRenderer>().material.color = gs.playerColor;
+        playerView2.GetChild(0).GetComponent<MeshRenderer>().material.color = gs.playerColor2;
         if (gs.isGameOver)
         {
             return;
@@ -54,7 +59,6 @@ public class GameSystemScript : MonoBehaviour
         SyncProjectileViews();
         playerView.position = gs.playerPosition;
         playerView2.position = gs.playerPosition2;
-
 
         Rules.Step(ref gs, agent.Act(ref gs, availableActions, 1),agent2.Act(ref gs, availableActions, 2));
     }
