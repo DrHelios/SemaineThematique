@@ -10,6 +10,7 @@ public class GameSystemScript : MonoBehaviour
 {
     public GameObject EnemyPrefab;
     public GameObject ProjectilePrefab;
+    public GameObject ProjectilePlayer2Prefab;
     public GameObject PlayerPrefab;
     public GameObject PlayerPrefab2;
 
@@ -40,6 +41,7 @@ public class GameSystemScript : MonoBehaviour
         //agent = new HumanAgent();
         agent2 = new HumanAgent();
         
+        // Plus utilisé
         gs.playerColor = Color.cyan;
         gs.playerColor2 = Color.cyan;
 
@@ -50,6 +52,7 @@ public class GameSystemScript : MonoBehaviour
 
     void Update()
     {
+        // Plus utilisé
         //playerView.GetChild(0).GetComponent<MeshRenderer>().material.color = gs.playerColor;
         //playerView2.GetChild(0).GetComponent<MeshRenderer>().material.color = gs.playerColor2;
         if (gs.isGameOver)
