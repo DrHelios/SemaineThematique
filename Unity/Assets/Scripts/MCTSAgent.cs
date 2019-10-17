@@ -1,4 +1,4 @@
-using System.Linq;
+using System.Collections.Generic;
 using Unity.Burst;
 using Unity.Collections;
 using Unity.Jobs;
@@ -46,8 +46,10 @@ public class MCTSAgent : IAgent
             var rootHash = Rules.GetHashCode(ref gsCopy);
 
             // CREATION DE LA MEMOIRE (Arbre)
-            var memory = new NativeHashMap<long, NativeList<Node>>(2048, Allocator.Temp);
-            memory.TryAdd(rootHash, new NativeList<Node>(availableActions.Length, Allocator.Temp));
+            var memory = new NativeHashMap<long, NativeList<Node>>(2048, Allocator.Temp); // FOR BURSTCOMPILE
+            //var memory = new Dictionary<long, NativeList<Node>>(2048);
+           memory.TryAdd(rootHash, new NativeList<Node>(availableActions.Length, Allocator.Temp));
+           // memory.Add(rootHash, new NativeList<Node>(availableActions.Length, Allocator.Temp));
 
             for (var i = 0; i < availableActions.Length; i++)
             {
@@ -118,7 +120,8 @@ public class MCTSAgent : IAgent
 
                     if (!memory.ContainsKey(currentHash))
                     {
-                        memory.TryAdd(currentHash, new NativeList<Node>(availableActions.Length, Allocator.Temp));
+                         memory.TryAdd(currentHash, new NativeList<Node>(availableActions.Length, Allocator.Temp));
+                        //memory.Add(currentHash, new NativeList<Node>(availableActions.Length, Allocator.Temp));
 
                         for (var i = 0; i < availableActions.Length; i++)
                         {
@@ -160,6 +163,7 @@ public class MCTSAgent : IAgent
                     if (!memory.ContainsKey(currentHash))
                     {
                         memory.TryAdd(currentHash, new NativeList<Node>(availableActions.Length, Allocator.Temp));
+                        //memory.Add(currentHash, new NativeList<Node>(availableActions.Length, Allocator.Temp));
 
                         for (var i = 0; i < availableActions.Length; i++)
                         {
@@ -209,9 +213,9 @@ public class MCTSAgent : IAgent
     {
         var job = new MCTSAgentJob
         {
-            availableActions = new NativeArray<int>( availableActions,Allocator.TempJob),
+            availableActions = availableActions,
             gs = gs,
-            summedScores = new NativeArray<long>(4, Allocator.TempJob),
+            summedScores = new NativeArray<long>(availableActions.Length, Allocator.TempJob),
             rdmAgent = new RandomAgent {rdm = new Random((uint) Time.frameCount)}
         };
 
@@ -234,7 +238,7 @@ public class MCTSAgent : IAgent
         var chosenAction = availableActions[bestActionIndex];
 
         job.summedScores.Dispose();
-        job.availableActions.Dispose();
+        //job.availableActions.Dispose();
         return chosenAction;
     }
 }

@@ -28,6 +28,9 @@ public static class SpaceInvadersGameStateRules
             throw new Exception("YOU SHOULD NOT TRY TO UPDATE GAME STATE WHEN GAME IS OVER !!!");
         }
 
+        if (gs.currentGameStep == 40000)
+            gs.isGameOver = true;
+
         UpdateEnemyPositions(ref gs);
         UpdateProjectiles(ref gs);
         HandleAgentInputs(ref gs, chosenPlayerAction);
@@ -263,7 +266,7 @@ public static class SpaceInvadersGameStateRules
     public static long GetHashCode(ref SpaceInvadersGameState gs)
     {
         var hash = 0L;
-        hash = (long) math.round(math.clamp(gs.playerPosition.x, -4.49999f, 4.49999f) + 4.5);
+        hash = (long) math.round(math.clamp(gs.playerPosition.y, 0.50000001f, 8.4999999f) - 0.5);
 
         var closestEnemyIndex = -1;
         var closestEnemyXPosition = -1f;
@@ -290,8 +293,8 @@ public static class SpaceInvadersGameStateRules
             return hash;
         }
         
-        hash += 10 + (long) math.round(math.clamp(closestEnemyXPosition, -4.49999f, 4.49999f) + 4.5);
-
+        hash += 20+gs.currentGameStep * (long) math.round(math.clamp(gs.playerPosition2.y, 0.50000001f, 8.4999999f) - 0.5);
+//20+currentstep
         return hash;
     }
 }
