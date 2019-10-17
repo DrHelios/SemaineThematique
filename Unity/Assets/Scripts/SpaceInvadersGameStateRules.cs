@@ -110,7 +110,7 @@ public static class SpaceInvadersGameStateRules
                 return;
             case 1: // UP
             {
-                if (gs.playerPosition2.y < 8.5f)
+                if (gs.playerPosition.y < 8.5f)
                 {
                     gs.playerPosition += Vector2.up * SpaceInvadersGameState.enemySpeed * 4;
                 }
@@ -119,7 +119,7 @@ public static class SpaceInvadersGameStateRules
             }
             case 2: // DOWN
             {
-                if (gs.playerPosition2.y > 0.5f)
+                if (gs.playerPosition.y > 0.5f)
                 {
                     gs.playerPosition += Vector2.down * SpaceInvadersGameState.enemySpeed * 4;
                 }

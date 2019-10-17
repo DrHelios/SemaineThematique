@@ -8,7 +8,7 @@ public class GameOverText : MonoBehaviour
 {
     public Text changetext;
 
-    private void Update()
+    private void Start()
     {
         changetext.text = ApplicationData.gameOverText;
     }

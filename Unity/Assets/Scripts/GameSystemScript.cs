@@ -47,9 +47,12 @@ public class GameSystemScript : MonoBehaviour
         //agent = new RandomRolloutAgent();
         //agent2 = new RandomRolloutAgent();
         
-        agent = new HumanAgent();
-        agent2 = new HumanAgent();
-
+        //agent = new HumanAgent();
+        //agent2 = new HumanAgent();
+        
+        DefineAgent1(ApplicationData.IndexOfTypeOfChosenAgent);
+        DefineAgent2(ApplicationData.IndexOfTypeOfChosenAgent2);
+        
         gs.sndPlayer = true;
         availableActions =
             new NativeArray<int>(SpaceInvadersGameStateRules.GetAvailableActions(ref gs), Allocator.Persistent);
@@ -81,6 +84,50 @@ public class GameSystemScript : MonoBehaviour
         Player2Score.text = gs.iaScore.ToString();
 
         Rules.Step(ref gs, agent.Act(ref gs, availableActions, 1),agent2.Act(ref gs, availableActions2, 2));
+    }
+
+    private void DefineAgent1(int dropDownIndex1)
+    {
+        switch (dropDownIndex1)
+        {
+            case 0: // player
+                agent = new HumanAgent();
+                break;
+            case 1: // random
+                agent = new RandomAgent {rdm = new Unity.Mathematics.Random((uint) Time.frameCount)};
+                break;
+            case 2: // randomRollout
+                agent = new RandomRolloutAgent();
+                break;
+            case 3: // Dijstra
+                break;
+            case 4: // MCTS
+                break;
+            case 5: //Q Learning
+                break;
+        }
+    }
+
+    private void DefineAgent2(int dropDownIndex2)
+    {
+        switch (dropDownIndex2)
+        {
+            case 0: // player
+                agent2 = new HumanAgent();
+                break;
+            case 1: // random
+                agent2 = new RandomAgent {rdm = new Unity.Mathematics.Random((uint) Time.frameCount)};
+                break;
+            case 2: // randomRollout
+                agent2 = new RandomRolloutAgent();
+                break;
+            case 3: // Dijstra
+                break;
+            case 4: // MCTS
+                break;
+            case 5: //Q Learning
+                break;
+        }
     }
 
     private void SyncEnemyViews()

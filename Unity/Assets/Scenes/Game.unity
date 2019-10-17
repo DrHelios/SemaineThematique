@@ -511,6 +511,68 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pl2Text
       objectReference: {fileID: 0}
+    - target: {fileID: 7505476138093311758, guid: 385136a6a6f8d414db8121a433e9c664,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7505476138093311758, guid: 385136a6a6f8d414db8121a433e9c664,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.111646414
+      objectReference: {fileID: 0}
+    - target: {fileID: 7505476137583513650, guid: 385136a6a6f8d414db8121a433e9c664,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7505476137583513650, guid: 385136a6a6f8d414db8121a433e9c664,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.111646414
+      objectReference: {fileID: 0}
+    - target: {fileID: 7505476138273011933, guid: 385136a6a6f8d414db8121a433e9c664,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 1f1d5baae1d26404a8a639a07e5c7766,
+        type: 3}
+    - target: {fileID: 7505476138273011933, guid: 385136a6a6f8d414db8121a433e9c664,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7505476138273011933, guid: 385136a6a6f8d414db8121a433e9c664,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.97092485
+      objectReference: {fileID: 0}
+    - target: {fileID: 7505476138273011933, guid: 385136a6a6f8d414db8121a433e9c664,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7505476138822028611, guid: 385136a6a6f8d414db8121a433e9c664,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 1f1d5baae1d26404a8a639a07e5c7766,
+        type: 3}
+    - target: {fileID: 7505476138822028611, guid: 385136a6a6f8d414db8121a433e9c664,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7505476138822028611, guid: 385136a6a6f8d414db8121a433e9c664,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7505476138822028611, guid: 385136a6a6f8d414db8121a433e9c664,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0.97092485
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 385136a6a6f8d414db8121a433e9c664, type: 3}
 --- !u!114 &475234384 stripped
@@ -602,6 +664,40 @@ PrefabInstance:
       propertyPath: PlayerScore2
       value: 
       objectReference: {fileID: 618048238}
+    - target: {fileID: 8018272352183170997, guid: 7e8668bc448867a409e0a8d7ffaf3385,
+        type: 3}
+      propertyPath: Player1Score
+      value: 
+      objectReference: {fileID: 2109072982}
+    - target: {fileID: 8018272352183170997, guid: 7e8668bc448867a409e0a8d7ffaf3385,
+        type: 3}
+      propertyPath: Player2Score
+      value: 
+      objectReference: {fileID: 618048238}
+    - target: {fileID: 8018272352183170997, guid: 7e8668bc448867a409e0a8d7ffaf3385,
+        type: 3}
+      propertyPath: Player2Prefab
+      value: 
+      objectReference: {fileID: 8886385396455887703, guid: a49be0991f235a44dabbe989f0587c36,
+        type: 3}
+    - target: {fileID: 8018272352183170997, guid: 7e8668bc448867a409e0a8d7ffaf3385,
+        type: 3}
+      propertyPath: Player1Prefab
+      value: 
+      objectReference: {fileID: 8886385396455887703, guid: a49be0991f235a44dabbe989f0587c36,
+        type: 3}
+    - target: {fileID: 8018272352183170997, guid: 7e8668bc448867a409e0a8d7ffaf3385,
+        type: 3}
+      propertyPath: Player1ProjectilePrefab
+      value: 
+      objectReference: {fileID: 1422531959741914303, guid: 66e7b5006d449694eb4716d0549ff96c,
+        type: 3}
+    - target: {fileID: 8018272352183170997, guid: 7e8668bc448867a409e0a8d7ffaf3385,
+        type: 3}
+      propertyPath: Player2ProjectilePrefab
+      value: 
+      objectReference: {fileID: 1422531959741914303, guid: 66e7b5006d449694eb4716d0549ff96c,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7e8668bc448867a409e0a8d7ffaf3385, type: 3}
 --- !u!114 &618048238 stripped
