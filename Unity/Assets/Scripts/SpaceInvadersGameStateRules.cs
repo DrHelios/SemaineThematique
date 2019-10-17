@@ -22,7 +22,7 @@ public static class SpaceInvadersGameStateRules
         gs.gameShipSpeed = 0;
         gs.gameProjectileSpeed = 0;
 
-        DefineGameSpeed(ApplicationData.IndexOfTypeOfChosenGameSpeed);
+        DefineGameSpeed(ApplicationData.IndexOfTypeOfChosenGameSpeed, ref gs);
     }
 
     public static void Step(ref SpaceInvadersGameState gs, int chosenPlayerAction, int chosenSecondPlayerInput)
@@ -53,24 +53,24 @@ public static class SpaceInvadersGameStateRules
                 gs.gameProjectileSpeed = SpaceInvadersGameState.projectileSpeed * 1f;
                 break;
             case 1:
-                gs.gameShipSpeed = SpaceInvadersGameState.playerSpeed * 1f;
-                gs.gameProjectileSpeed = SpaceInvadersGameState.projectileSpeed * 1f;
+                gs.gameShipSpeed = SpaceInvadersGameState.playerSpeed * 3f;
+                gs.gameProjectileSpeed = SpaceInvadersGameState.projectileSpeed * 3f;
                 break;
             case 2:
-                gs.gameShipSpeed = SpaceInvadersGameState.playerSpeed * 1f;
-                gs.gameProjectileSpeed = SpaceInvadersGameState.projectileSpeed * 1f;
+                gs.gameShipSpeed = SpaceInvadersGameState.playerSpeed * 6f;
+                gs.gameProjectileSpeed = SpaceInvadersGameState.projectileSpeed * 6f;
                 break;
             case 3:
-                gs.gameShipSpeed = SpaceInvadersGameState.playerSpeed * 1f;
-                gs.gameProjectileSpeed = SpaceInvadersGameState.projectileSpeed * 1f;
+                gs.gameShipSpeed = SpaceInvadersGameState.playerSpeed * 9f;
+                gs.gameProjectileSpeed = SpaceInvadersGameState.projectileSpeed * 9f;
                 break;
             case 4:
-                gs.gameShipSpeed = SpaceInvadersGameState.playerSpeed * 1f;
-                gs.gameProjectileSpeed = SpaceInvadersGameState.projectileSpeed * 1f;
+                gs.gameShipSpeed = SpaceInvadersGameState.playerSpeed * 12f;
+                gs.gameProjectileSpeed = SpaceInvadersGameState.projectileSpeed * 12f;
                 break;
             case 5:
-                gs.gameShipSpeed = SpaceInvadersGameState.playerSpeed * 1f;
-                gs.gameProjectileSpeed = SpaceInvadersGameState.projectileSpeed * 1f;
+                gs.gameShipSpeed = SpaceInvadersGameState.playerSpeed * 15f;
+                gs.gameProjectileSpeed = SpaceInvadersGameState.projectileSpeed * 15f;
                 break;
         }
     }
@@ -151,7 +151,7 @@ public static class SpaceInvadersGameStateRules
             {
                 if (gs.playerPosition.y < 8.5f)
                 {
-                    gs.playerPosition += Vector2.up * SpaceInvadersGameState.enemySpeed * 4;
+                    gs.playerPosition += Vector2.up * gs.gameShipSpeed;
                 }
 
                 break;
@@ -160,7 +160,7 @@ public static class SpaceInvadersGameStateRules
             {
                 if (gs.playerPosition.y > 0.5f)
                 {
-                    gs.playerPosition += Vector2.down * SpaceInvadersGameState.enemySpeed * 4;
+                    gs.playerPosition += Vector2.down * gs.gameShipSpeed;
                 }
 
                 break;
@@ -178,7 +178,7 @@ public static class SpaceInvadersGameStateRules
                 gs.projectiles.Add(new Projectile
                 {
                     position = gs.playerPosition + Vector2.right * 1.3f,
-                    speed = Vector2.right * SpaceInvadersGameState.projectileSpeed
+                    speed = Vector2.right * gs.gameProjectileSpeed
                 });
                 break;
             }
@@ -195,7 +195,7 @@ public static class SpaceInvadersGameStateRules
             {
                 if (gs.playerPosition2.y < 8.5f)
                 {
-                    gs.playerPosition2 += Vector2.up * SpaceInvadersGameState.enemySpeed * 4;
+                    gs.playerPosition2 += Vector2.up * gs.gameShipSpeed;
                 }
 
                 break;
@@ -204,7 +204,7 @@ public static class SpaceInvadersGameStateRules
             {
                 if (gs.playerPosition2.y > 0.5f)
                 {
-                    gs.playerPosition2 += Vector2.down * SpaceInvadersGameState.enemySpeed * 4;
+                    gs.playerPosition2 += Vector2.down * gs.gameShipSpeed;
                 }
 
                 break;
@@ -221,7 +221,7 @@ public static class SpaceInvadersGameStateRules
                 gs.projectiles.Add(new Projectile
                 {
                     position = gs.playerPosition2 + Vector2.left * 1.3f,
-                    speed = Vector2.left * SpaceInvadersGameState.projectileSpeed
+                    speed = Vector2.left * gs.gameProjectileSpeed
                 });
                 break;
             }
