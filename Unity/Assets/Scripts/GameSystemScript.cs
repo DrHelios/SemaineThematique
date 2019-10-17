@@ -92,6 +92,7 @@ public class GameSystemScript : MonoBehaviour
             Player2Score.text = gs.iaScore.ToString();
 
             Rules.Step(ref gs, agent.Act(ref gs, availableActions, 1), agent2.Act(ref gs, availableActions2, 2));
+            
         }        
     }
 
