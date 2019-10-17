@@ -227,7 +227,7 @@ public static class SpaceInvadersGameStateRules
             }
         }
     }
-    
+
     /*static void HandleEnemyAtBottom(ref SpaceInvadersGameState gs)
     {
         for (var i = 0; i < gs.enemies.Length; i++)
