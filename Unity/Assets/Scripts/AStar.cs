@@ -6,20 +6,10 @@ using UnityEngine;
 using Random = Unity.Mathematics.Random;
 using Rules = SpaceInvadersGameStateRules;
 
-public class Node
-{
-    public float gCost;
-    public float hCost;
-
-    public float fCost()
-    {
-        return gCost + hCost;
-    }
-}
-public class DijkstraAgent : IAgent
+public class AStar : IAgent
 {
     [BurstCompile]
-    struct DijkstraJob : IJobParallelFor
+    struct AStarJob : IJobParallelFor
     {
         public SpaceInvadersGameState gs;
 
@@ -61,9 +51,53 @@ public class DijkstraAgent : IAgent
   
     
 }
+
+    public int nodeOpen(NativeList<int> action)
+    {
+        int node = 0;
+        node += int.MaxValue;
+        foreach (var n in  action)
+        {
+            if (n < node)
+            {
+                node = n;
+            }
+        }
+
+        action.RemoveAtSwapBack(action.IndexOf(node));
+        return node;
+    }
     
     public int Act(ref SpaceInvadersGameState gs, NativeArray<int> availableActions, int plyId)
     {
-        throw new NotImplementedException();
+        int nodeDepart, nodeArrive, nodePre, ndOpen;
+        NativeList<int> actionArray =  new NativeList<int>();
+        NativeList<int> openNode = new NativeList<int>();
+        for (int i = 0; i < availableActions.Length; i++)
+        {
+            i = Int32.MaxValue;
+            nodePre = i; 
+            openNode.Add(i);
+
+        }
+
+        nodeDepart = 0;
+        ndOpen = nodeOpen(openNode);
+       /* while (ndOpen != nodeArrive )
+        {
+            foreach (var n in openNode)
+            {
+                int cost = ndOpen +
+                if (n > cost)
+                {
+                    n = cost;
+                    nodePre = ndOpen;
+                }
+            }
+
+            ndOpen = nodeOpen(openNode);
+        }*/
+       return 0;
+
     }
 }
