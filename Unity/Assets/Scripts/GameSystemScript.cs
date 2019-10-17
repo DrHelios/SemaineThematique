@@ -8,13 +8,19 @@ using Rules = SpaceInvadersGameStateRules;
 
 public class GameSystemScript : MonoBehaviour
 {
+    // Pas utilisé
+    [Header("Enemy prefab")]
     public GameObject EnemyPrefab;
-    public GameObject ProjectilePrefab;
-    public GameObject ProjectilePlayer2Prefab;
-    public GameObject PlayerPrefab;
-    public GameObject PlayerPrefab2;
-    public Text PlayerScore;
-    public Text PlayerScore2;
+
+    [Header("Player 1 prefab")]
+    public GameObject Player1Prefab;
+    public GameObject Player1ProjectilePrefab;
+    public Text Player1Score;
+
+    [Header("Player 2 prefab")]
+    public GameObject Player2Prefab;
+    public GameObject Player2ProjectilePrefab;
+    public Text Player2Score;
 
     private SpaceInvadersGameState gs;
 
@@ -32,8 +38,8 @@ public class GameSystemScript : MonoBehaviour
     {
         Rules.Init(ref gs);
 
-        playerView = Instantiate(PlayerPrefab).GetComponent<Transform>();
-        playerView2 = Instantiate(PlayerPrefab2).GetComponent<Transform>();
+        playerView = Instantiate(Player1Prefab).GetComponent<Transform>();
+        playerView2 = Instantiate(Player2Prefab).GetComponent<Transform>();
 
         //agent = new RandomAgent {rdm = new Unity.Mathematics.Random((uint) Time.frameCount)};
         //agent2 = new RandomAgent {rdm = new Unity.Mathematics.Random((uint) Time.frameCount)};
@@ -71,8 +77,8 @@ public class GameSystemScript : MonoBehaviour
         SyncProjectileViews();
         playerView.position = gs.playerPosition;
         playerView2.position = gs.playerPosition2;
-        PlayerScore.text = gs.playerScore.ToString();
-        PlayerScore2.text = gs.iaScore.ToString();
+        Player1Score.text = gs.playerScore.ToString();
+        Player2Score.text = gs.iaScore.ToString();
 
         Rules.Step(ref gs, agent.Act(ref gs, availableActions, 1),agent2.Act(ref gs, availableActions2, 2));
     }
@@ -105,7 +111,7 @@ public class GameSystemScript : MonoBehaviour
 
         for (var i = 0; i < projectilesToSpawn; i++)
         {
-            var projectileView = Instantiate(ProjectilePrefab).GetComponent<Transform>();
+            var projectileView = Instantiate(Player1ProjectilePrefab).GetComponent<Transform>();
             projectilesView.Add(projectileView);
         }
 
