@@ -137,8 +137,6 @@ public static class SpaceInvadersGameStateRules
                 break;
             }
         }
-
-
     }
 
     static void HandleAgentInputs(ref SpaceInvadersGameState gs, int chosenPlayerAction)
