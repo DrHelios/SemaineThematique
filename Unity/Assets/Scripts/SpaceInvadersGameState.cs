@@ -28,4 +28,6 @@ public struct SpaceInvadersGameState
     public bool isGameOver;
     public long playerScore;
     public bool sndPlayer;
+    public float gameShipSpeed;
+    public float gameProjectileSpeed;
 }
