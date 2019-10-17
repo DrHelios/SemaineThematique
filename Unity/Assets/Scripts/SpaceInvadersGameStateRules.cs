@@ -263,7 +263,7 @@ public static class SpaceInvadersGameStateRules
     public static long GetHashCode(ref SpaceInvadersGameState gs)
     {
         var hash = 0L;
-        hash = (long) math.round(math.clamp(gs.playerPosition.x, -4.49999f, 4.49999f) + 4.5);
+        hash = (long) math.round(math.clamp(gs.playerPosition2.x, -4.49999f, 4.49999f) + 4.5);
 
         var closestEnemyIndex = -1;
         var closestEnemyXPosition = -1f;
@@ -272,16 +272,16 @@ public static class SpaceInvadersGameStateRules
 
 
             var enemyXPosition = gs.playerPosition2.x;
-            var distance = math.abs(enemyXPosition - gs.playerPosition.x);
+            var distance = math.abs(enemyXPosition - gs.playerPosition2.x);
 
-            if (gs.playerPosition.y < closestEnemyYPosition
-                || Math.Abs(gs.playerPosition.y - closestEnemyYPosition) < 0.000001f
+            if (gs.playerPosition2.y < closestEnemyYPosition
+                || Math.Abs(gs.playerPosition2.y - closestEnemyYPosition) < 0.000001f
                 && distance < closestEnemyDistance)
             {
                 closestEnemyIndex = 0;
                 closestEnemyXPosition = enemyXPosition;
                 closestEnemyDistance = distance;
-                closestEnemyYPosition = gs.playerPosition.y;
+                closestEnemyYPosition = gs.playerPosition2.y;
             }
         
 
