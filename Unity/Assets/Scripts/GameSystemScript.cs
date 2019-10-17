@@ -13,6 +13,8 @@ public class GameSystemScript : MonoBehaviour
     public GameObject ProjectilePlayer2Prefab;
     public GameObject PlayerPrefab;
     public GameObject PlayerPrefab2;
+    public Text PlayerScore;
+    public Text PlayerScore2;
 
     private SpaceInvadersGameState gs;
 
@@ -22,8 +24,6 @@ public class GameSystemScript : MonoBehaviour
     private NativeArray<int> availableActions2;
     private Transform playerView;
     private Transform playerView2;
-    private MeshRenderer playerMesh;
-    private MeshRenderer playerMesh2;
     private IAgent agent;
     private IAgent agent2;
 
@@ -38,17 +38,11 @@ public class GameSystemScript : MonoBehaviour
         //agent = new RandomAgent {rdm = new Unity.Mathematics.Random((uint) Time.frameCount)};
         //agent2 = new RandomAgent {rdm = new Unity.Mathematics.Random((uint) Time.frameCount)};
         
-        agent = new RandomRolloutAgent();
-        agent2 = new RandomRolloutAgent();
+        //agent = new RandomRolloutAgent();
+        //agent2 = new RandomRolloutAgent();
         
-        //agent = new HumanAgent();
-        //agent2 = new HumanAgent();
-        
-        // Plus utilisé
-        gs.playerColor = Color.cyan;
-        gs.playerColor2 = Color.cyan;
-        /*playerMesh = playerView.GetChild(0).GetComponent<MeshRenderer>();
-        playerMesh2 = playerView2.GetChild(0).GetComponent<MeshRenderer>();*/
+        agent = new HumanAgent();
+        agent2 = new HumanAgent();
 
         gs.sndPlayer = true;
         availableActions =
@@ -59,11 +53,6 @@ public class GameSystemScript : MonoBehaviour
 
     void Update()
     {
-        /*playerMesh.material.color = gs.playerColor;
-        playerMesh2.material.color = gs.playerColor2;*/
-        // Plus utilisé
-        //playerView.GetChild(0).GetComponent<MeshRenderer>().material.color = gs.playerColor;
-        //playerView2.GetChild(0).GetComponent<MeshRenderer>().material.color = gs.playerColor2;
         if (gs.isGameOver)
         {
             if (gs.iaScore >= 3)
@@ -82,6 +71,8 @@ public class GameSystemScript : MonoBehaviour
         SyncProjectileViews();
         playerView.position = gs.playerPosition;
         playerView2.position = gs.playerPosition2;
+        PlayerScore.text = gs.playerScore.ToString();
+        PlayerScore2.text = gs.iaScore.ToString();
 
         Rules.Step(ref gs, agent.Act(ref gs, availableActions, 1),agent2.Act(ref gs, availableActions2, 2));
     }

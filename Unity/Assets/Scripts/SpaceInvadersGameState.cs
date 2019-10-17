@@ -22,8 +22,6 @@ public struct SpaceInvadersGameState
     
     public Vector2 playerPosition;
     public Vector2 playerPosition2;
-    public Color playerColor;
-    public Color playerColor2;
     public long lastShootStep;
     public long lastShootStep2;
     public long currentGameStep;

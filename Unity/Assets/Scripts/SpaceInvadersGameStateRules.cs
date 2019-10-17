@@ -79,7 +79,6 @@ public static class SpaceInvadersGameStateRules
                 i--;
                 if(gs.iaScore >= 3)
                 {
-                    gs.playerColor = Color.red;
                     gs.isGameOver = true;
                 }
                 break;
@@ -94,7 +93,6 @@ public static class SpaceInvadersGameStateRules
                 i--;
                 if(gs.playerScore >= 3)
                 {
-                    gs.playerColor2 = Color.red;
                     gs.isGameOver = true;
                 }
                 break;
@@ -112,7 +110,7 @@ public static class SpaceInvadersGameStateRules
                 return;
             case 1: // UP
             {
-                if (gs.playerPosition.y < 8.5f)
+                if (gs.playerPosition2.y < 8.5f)
                 {
                     gs.playerPosition += Vector2.up * SpaceInvadersGameState.enemySpeed * 4;
                 }
@@ -121,7 +119,7 @@ public static class SpaceInvadersGameStateRules
             }
             case 2: // DOWN
             {
-                if (gs.playerPosition.y > 0.5f)
+                if (gs.playerPosition2.y > 0.5f)
                 {
                     gs.playerPosition += Vector2.down * SpaceInvadersGameState.enemySpeed * 4;
                 }
