@@ -263,10 +263,14 @@ public static class SpaceInvadersGameStateRules
         gsCopy.iaScore = gs.iaScore;
     }
     
-    public static long GetHashCode(ref SpaceInvadersGameState gs)
+    public static long GetHashCode(ref SpaceInvadersGameState gs, int plyId)
     {
         var hash = 0L;
-        hash = (long) math.round(math.clamp(gs.playerPosition.y, 0.50000001f, 8.4999999f) - 0.5);
+        if (plyId==1)
+            hash = (long) math.round(math.clamp(gs.playerPosition.y, 0.50000001f, 8.4999999f) - 0.5);
+        else if (plyId==2)
+            hash = (long) math.round(math.clamp(gs.playerPosition2.y, 0.50000001f, 8.4999999f) - 0.5);
+
 
         var closestEnemyIndex = -1;
         var closestEnemyXPosition = -1f;
@@ -274,26 +278,40 @@ public static class SpaceInvadersGameStateRules
         var closestEnemyYPosition = float.MaxValue;
 
 
-            var enemyXPosition = gs.playerPosition2.x;
-            var distance = math.abs(enemyXPosition - gs.playerPosition.x);
+        var distance= 0f;
+        var enemyXPosition = 0f;
+        if (plyId == 1)
+        {
+              enemyXPosition = gs.playerPosition.x;
+              distance = math.abs(enemyXPosition - gs.playerPosition2.x);
+        }
 
-            /*if (gs.playerPosition2.y < closestEnemyYPosition
-                || Math.Abs(gs.playerPosition2.y - closestEnemyYPosition) < 0.000001f
-                && distance < closestEnemyDistance)
-            {*/
-                closestEnemyIndex = 0;
-                closestEnemyXPosition = enemyXPosition;
-                closestEnemyDistance = distance;
-                closestEnemyYPosition = gs.playerPosition2.y;
-            //}
-        
+        else if (plyId == 2)
+        {
+             enemyXPosition = gs.playerPosition2.x;
+             distance = math.abs(enemyXPosition - gs.playerPosition.x);
+        }
+
+        closestEnemyIndex = 0;
+
 
         if (closestEnemyIndex == -1)
         {
             return hash;
         }
         
-        hash += 20+gs.currentGameStep * (long) math.round(math.clamp(gs.playerPosition2.y, 0.50000001f, 8.4999999f) - 0.5);
+        if (plyId == 1)
+        {
+            hash += 20+gs.currentGameStep * (long) math.round(math.clamp(gs.playerPosition2.y, 0.50000001f, 8.4999999f) - 0.5);
+
+        }
+
+        else if (plyId == 2)
+        {
+            hash += 20+gs.currentGameStep * (long) math.round(math.clamp(gs.playerPosition.y, 0.50000001f, 8.4999999f) - 0.5);
+
+        }
+
 //20+currentstep
         return hash;
     }

@@ -28,6 +28,8 @@ public class MCTSAgent : IAgent
     {
         public SpaceInvadersGameState gs;
 
+        public int playerId;
+
         [ReadOnly]
         public NativeArray<int> availableActions;
 
@@ -43,7 +45,7 @@ public class MCTSAgent : IAgent
 
             var gsCopy = Rules.Clone(ref gs);
 
-            var rootHash = Rules.GetHashCode(ref gsCopy);
+            var rootHash = Rules.GetHashCode(ref gsCopy, playerId);
 
             // CREATION DE LA MEMOIRE (Arbre)
             var memory = new NativeHashMap<long, NativeList<Node>>(2048, Allocator.Temp); // FOR BURSTCOMPILE
@@ -116,7 +118,7 @@ public class MCTSAgent : IAgent
                         nodeIndex = bestNodeIndex
                     });
                     Rules.Step(ref gsCopy, memory[currentHash][bestNodeIndex].action,0);
-                    currentHash = Rules.GetHashCode(ref gsCopy);
+                    currentHash = Rules.GetHashCode(ref gsCopy, playerId);
 
                     if (!memory.ContainsKey(currentHash))
                     {
@@ -158,7 +160,7 @@ public class MCTSAgent : IAgent
                         nodeIndex = unexploredActions[chosenNodeIndex]
                     });
                     Rules.Step(ref gsCopy, memory[currentHash][unexploredActions[chosenNodeIndex]].action,0);
-                    currentHash = Rules.GetHashCode(ref gsCopy);
+                    currentHash = Rules.GetHashCode(ref gsCopy, playerId);
 
                     if (!memory.ContainsKey(currentHash))
                     {
@@ -211,12 +213,14 @@ public class MCTSAgent : IAgent
 
     public int Act(ref SpaceInvadersGameState gs, NativeArray<int> availableActions, int plyId)
     {
+        
         var job = new MCTSAgentJob
         {
             availableActions = availableActions,
             gs = gs,
             summedScores = new NativeArray<long>(availableActions.Length, Allocator.TempJob),
-            rdmAgent = new RandomAgent {rdm = new Random((uint) Time.frameCount)}
+            rdmAgent = new RandomAgent {rdm = new Random((uint) Time.frameCount)},
+            playerId = plyId
         };
 
         var handle = job.Schedule();
