@@ -22,11 +22,11 @@ public class GameSystemScript : MonoBehaviour
     public GameObject Player2ProjectilePrefab;
     public Text Player2Score;
 
-    private SpaceInvadersGameState gs;
-
     [Header("Pause Script")]
     [SerializeField]
     private PauseMenu pauseMenu;
+
+    private SpaceInvadersGameState gs;
 
     private readonly List<Transform> enemiesView = new List<Transform>();
     private readonly List<Transform> projectilesView = new List<Transform>();
