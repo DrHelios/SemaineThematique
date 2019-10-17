@@ -5092,6 +5092,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   drop1: {fileID: 4094135945314127511}
   drop2: {fileID: 3696416006249328958}
+  drop3: {fileID: 6737512197961720824}
 --- !u!1 &3696416005640261661
 GameObject:
   m_ObjectHideFlags: 0
@@ -6360,7 +6361,7 @@ GameObject:
   - component: {fileID: 5342289170562560749}
   - component: {fileID: 6737512197961720824}
   m_Layer: 5
-  m_Name: Dropdown
+  m_Name: GameSpeedDropdown
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
