@@ -1,3 +1,4 @@
+using System.Linq;
 using Unity.Burst;
 using Unity.Collections;
 using Unity.Jobs;
@@ -34,10 +35,10 @@ public class MCTSAgent : IAgent
 
         [WriteOnly]
         public NativeArray<long> summedScores;
-
+        
         public void Execute()
         {
-            var epochs = 200;
+            var epochs = 5;
             var agent = rdmAgent;
 
             var gsCopy = Rules.Clone(ref gs);
@@ -112,7 +113,7 @@ public class MCTSAgent : IAgent
                         hash = currentHash,
                         nodeIndex = bestNodeIndex
                     });
-                    Rules.Step(ref gsCopy, memory[currentHash][bestNodeIndex].action,memory[currentHash][bestNodeIndex].action);
+                    Rules.Step(ref gsCopy, memory[currentHash][bestNodeIndex].action,0);
                     currentHash = Rules.GetHashCode(ref gsCopy);
 
                     if (!memory.ContainsKey(currentHash))
@@ -153,7 +154,7 @@ public class MCTSAgent : IAgent
                         hash = currentHash,
                         nodeIndex = unexploredActions[chosenNodeIndex]
                     });
-                    Rules.Step(ref gsCopy, memory[currentHash][unexploredActions[chosenNodeIndex]].action,memory[currentHash][unexploredActions[chosenNodeIndex]].action);
+                    Rules.Step(ref gsCopy, memory[currentHash][unexploredActions[chosenNodeIndex]].action,0);
                     currentHash = Rules.GetHashCode(ref gsCopy);
 
                     if (!memory.ContainsKey(currentHash))
@@ -178,7 +179,7 @@ public class MCTSAgent : IAgent
                 while (!gsCopy.isGameOver)
                 {
                     var chosenActionIndex = agent.rdm.NextInt(0, availableActions.Length);
-                    Rules.Step(ref gsCopy, chosenActionIndex, chosenActionIndex);
+                    Rules.Step(ref gsCopy, chosenActionIndex, 0);
                 }
 
 
@@ -208,9 +209,9 @@ public class MCTSAgent : IAgent
     {
         var job = new MCTSAgentJob
         {
-            availableActions = availableActions,
+            availableActions = new NativeArray<int>( availableActions,Allocator.TempJob),
             gs = gs,
-            summedScores = new NativeArray<long>(availableActions.Length, Allocator.TempJob),
+            summedScores = new NativeArray<long>(4, Allocator.TempJob),
             rdmAgent = new RandomAgent {rdm = new Random((uint) Time.frameCount)}
         };
 
@@ -233,6 +234,7 @@ public class MCTSAgent : IAgent
         var chosenAction = availableActions[bestActionIndex];
 
         job.summedScores.Dispose();
+        job.availableActions.Dispose();
         return chosenAction;
     }
 }
