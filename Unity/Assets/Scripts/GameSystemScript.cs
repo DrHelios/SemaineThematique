@@ -24,6 +24,10 @@ public class GameSystemScript : MonoBehaviour
 
     private SpaceInvadersGameState gs;
 
+    [Header("Pause Script")]
+    [SerializeField]
+    private PauseMenu pauseMenu;
+
     private readonly List<Transform> enemiesView = new List<Transform>();
     private readonly List<Transform> projectilesView = new List<Transform>();
     private NativeArray<int> availableActions;
@@ -62,28 +66,31 @@ public class GameSystemScript : MonoBehaviour
 
     void Update()
     {
-        if (gs.isGameOver)
+        if (!pauseMenu.gameIsPaused)
         {
-            if (gs.iaScore >= 3)
+            if (gs.isGameOver)
             {
-                ApplicationData.gameOverText= "N°2 win";
+                if (gs.iaScore >= 3)
+                {
+                    ApplicationData.gameOverText = "N°2 win";
+                }
+                if (gs.playerScore >= 3)
+                {
+                    ApplicationData.gameOverText = "N°1 win";
+                }
+                SceneManager.LoadScene("GameOver");
+                return;
             }
-            if (gs.playerScore >= 3)
-            {
-                ApplicationData.gameOverText = "N°1 win";
-            }
-            SceneManager.LoadScene("GameOver");
-            return;
-        }
 
-        SyncEnemyViews();
-        SyncProjectileViews();
-        playerView.position = gs.playerPosition;
-        playerView2.position = gs.playerPosition2;
-        Player1Score.text = gs.playerScore.ToString();
-        Player2Score.text = gs.iaScore.ToString();
+            SyncEnemyViews();
+            SyncProjectileViews();
+            playerView.position = gs.playerPosition;
+            playerView2.position = gs.playerPosition2;
+            Player1Score.text = gs.playerScore.ToString();
+            Player2Score.text = gs.iaScore.ToString();
 
-        Rules.Step(ref gs, agent.Act(ref gs, availableActions, 1),agent2.Act(ref gs, availableActions2, 2));
+            Rules.Step(ref gs, agent.Act(ref gs, availableActions, 1), agent2.Act(ref gs, availableActions2, 2));
+        }        
     }
 
     private void DefineAgent1(int dropDownIndex1)

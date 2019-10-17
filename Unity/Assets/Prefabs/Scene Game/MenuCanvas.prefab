@@ -1956,6 +1956,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 574349245aafab04887362c1549b17f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  drop1: {fileID: 0}
+  drop2: {fileID: 0}
 --- !u!1 &6170652332739438111
 GameObject:
   m_ObjectHideFlags: 0
