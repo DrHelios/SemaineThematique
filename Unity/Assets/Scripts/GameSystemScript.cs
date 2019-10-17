@@ -102,6 +102,7 @@ public class GameSystemScript : MonoBehaviour
             case 3: // Dijstra
                 break;
             case 4: // MCTS
+                agent = new MCTSAgent();
                 break;
             case 5: //Q Learning
                 break;
@@ -124,6 +125,7 @@ public class GameSystemScript : MonoBehaviour
             case 3: // Dijstra
                 break;
             case 4: // MCTS
+                agent = new MCTSAgent();
                 break;
             case 5: //Q Learning
                 break;

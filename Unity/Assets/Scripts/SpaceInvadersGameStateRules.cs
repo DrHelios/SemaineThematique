@@ -270,21 +270,20 @@ public static class SpaceInvadersGameStateRules
         var closestEnemyDistance = float.MaxValue;
         var closestEnemyYPosition = float.MaxValue;
 
-        for (var i = 0; i < gs.enemies.Length; i++)
-        {
-            var enemyXPosition = gs.enemies[i].position.x;
+
+            var enemyXPosition = gs.playerPosition2.x;
             var distance = math.abs(enemyXPosition - gs.playerPosition.x);
 
-            if (gs.enemies[i].position.y < closestEnemyYPosition
-                || Math.Abs(gs.enemies[i].position.y - closestEnemyYPosition) < 0.000001f
+            if (gs.playerPosition.y < closestEnemyYPosition
+                || Math.Abs(gs.playerPosition.y - closestEnemyYPosition) < 0.000001f
                 && distance < closestEnemyDistance)
             {
-                closestEnemyIndex = i;
+                closestEnemyIndex = 0;
                 closestEnemyXPosition = enemyXPosition;
                 closestEnemyDistance = distance;
-                closestEnemyYPosition = gs.enemies[i].position.y;
+                closestEnemyYPosition = gs.playerPosition.y;
             }
-        }
+        
 
         if (closestEnemyIndex == -1)
         {

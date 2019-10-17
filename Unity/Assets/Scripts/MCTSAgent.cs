@@ -112,7 +112,7 @@ public class MCTSAgent : IAgent
                         hash = currentHash,
                         nodeIndex = bestNodeIndex
                     });
-                    Rules.Step(ref gsCopy, memory[currentHash][bestNodeIndex].action);
+                    Rules.Step(ref gsCopy, memory[currentHash][bestNodeIndex].action,memory[currentHash][bestNodeIndex].action);
                     currentHash = Rules.GetHashCode(ref gsCopy);
 
                     if (!memory.ContainsKey(currentHash))
@@ -153,7 +153,7 @@ public class MCTSAgent : IAgent
                         hash = currentHash,
                         nodeIndex = unexploredActions[chosenNodeIndex]
                     });
-                    Rules.Step(ref gsCopy, memory[currentHash][unexploredActions[chosenNodeIndex]].action);
+                    Rules.Step(ref gsCopy, memory[currentHash][unexploredActions[chosenNodeIndex]].action,memory[currentHash][unexploredActions[chosenNodeIndex]].action);
                     currentHash = Rules.GetHashCode(ref gsCopy);
 
                     if (!memory.ContainsKey(currentHash))
@@ -178,7 +178,7 @@ public class MCTSAgent : IAgent
                 while (!gsCopy.isGameOver)
                 {
                     var chosenActionIndex = agent.rdm.NextInt(0, availableActions.Length);
-                    Rules.Step(ref gsCopy, chosenActionIndex);
+                    Rules.Step(ref gsCopy, chosenActionIndex, chosenActionIndex);
                 }
 
 
@@ -204,7 +204,7 @@ public class MCTSAgent : IAgent
         }
     }
 
-    public int Act(ref SpaceInvadersGameState gs, NativeArray<int> availableActions)
+    public int Act(ref SpaceInvadersGameState gs, NativeArray<int> availableActions, int plyId)
     {
         var job = new MCTSAgentJob
         {
