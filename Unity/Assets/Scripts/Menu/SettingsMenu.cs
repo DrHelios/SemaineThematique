@@ -56,7 +56,6 @@ public class SettingsMenu : MonoBehaviour {
     public void SetResolution(int resolutionIndex)
     {
         Resolution resolution = resolutions[resolutionIndex];
-        print("Want to set the resolution to " + resolution);
         Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
     }
 
