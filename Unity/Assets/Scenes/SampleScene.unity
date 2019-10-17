@@ -166,14 +166,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EnemyPrefab: {fileID: 8886385396455887703, guid: a49be0991f235a44dabbe989f0587c36,
     type: 3}
-  ProjectilePrefab: {fileID: 2688955894241752702, guid: 894b361f6e3238a45a1ccafaae8bd27e,
+  Player1Prefab: {fileID: 9105250983243665821, guid: 1b162540d286c9e4897e814f1c627bd6,
     type: 3}
-  ProjectilePlayer2Prefab: {fileID: 409968522644827347, guid: 187cbadddaccc6646ae6dfb57f79534d,
+  Player1ProjectilePrefab: {fileID: 2688955894241752702, guid: 894b361f6e3238a45a1ccafaae8bd27e,
     type: 3}
-  PlayerPrefab: {fileID: 9105250983243665821, guid: 1b162540d286c9e4897e814f1c627bd6,
+  Player1Score: {fileID: 0}
+  Player2Prefab: {fileID: 2223406875566593729, guid: 2adeab7d4783cfa448e92f3c9c23b89c,
     type: 3}
-  PlayerPrefab2: {fileID: 2223406875566593729, guid: 2adeab7d4783cfa448e92f3c9c23b89c,
+  Player2ProjectilePrefab: {fileID: 409968522644827347, guid: 187cbadddaccc6646ae6dfb57f79534d,
     type: 3}
+  Player2Score: {fileID: 0}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
