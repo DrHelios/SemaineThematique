@@ -1382,7 +1382,7 @@ GameObject:
   - component: {fileID: 4738157755884877709}
   - component: {fileID: 4738157755884877714}
   m_Layer: 5
-  m_Name: GameName
+  m_Name: PauseText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1446,7 +1446,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "Pongst\xE9ro\xEFd"
+  m_Text: Pause
 --- !u!1 &4738157756271523761
 GameObject:
   m_ObjectHideFlags: 0
