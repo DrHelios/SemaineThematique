@@ -72,11 +72,11 @@ public class GameSystemScript : MonoBehaviour
             {
                 if (gs.iaScore >= 3)
                 {
-                    ApplicationData.gameOverText = "N°2 win";
+                    ApplicationData.gameOverText = "Joueur 2 gagne";
                 }
                 if (gs.playerScore >= 3)
                 {
-                    ApplicationData.gameOverText = "N°1 win";
+                    ApplicationData.gameOverText = "Joueur 1 gagne";
                 }
                 SceneManager.LoadScene("GameOver");
                 return;
