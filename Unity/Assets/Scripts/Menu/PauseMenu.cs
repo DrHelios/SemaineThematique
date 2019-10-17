@@ -30,6 +30,7 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 1f;
         HideMouseCursor();
         gameIsPaused = false;
+        Debug.Log("Game is resume");
     }
 
     void Pause()
@@ -38,6 +39,7 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 0f;
         ShowMouseCursor();
         gameIsPaused = true;
+        Debug.Log("Game is paused");
     }
 
     public void LoadMenu()
