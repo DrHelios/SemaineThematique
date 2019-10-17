@@ -41,6 +41,8 @@ public class GameSystemScript : MonoBehaviour
     void Start()
     {
         Rules.Init(ref gs);
+        Application.targetFrameRate = 60;
+
 
         playerView = Instantiate(Player1Prefab).GetComponent<Transform>();
         playerView2 = Instantiate(Player2Prefab).GetComponent<Transform>();
