@@ -18,8 +18,12 @@ public static class SpaceInvadersGameStateRules
 
         gs.playerScore = 0;
         gs.iaScore = 0;
-    }
 
+        gs.gameShipSpeed = 0;
+        gs.gameProjectileSpeed = 0;
+
+        DefineGameSpeed(ApplicationData.IndexOfTypeOfChosenGameSpeed);
+    }
 
     public static void Step(ref SpaceInvadersGameState gs, int chosenPlayerAction, int chosenSecondPlayerInput)
     {
@@ -38,6 +42,37 @@ public static class SpaceInvadersGameStateRules
         HandleCollisions(ref gs);
         //HandleEnemyAtBottom(ref gs);
         gs.currentGameStep += 1;
+    }
+
+    static void DefineGameSpeed(int dropDownIndex, ref SpaceInvadersGameState gs)
+    {
+        switch (dropDownIndex)
+        {
+            case 0:
+                gs.gameShipSpeed = SpaceInvadersGameState.playerSpeed * 1f;
+                gs.gameProjectileSpeed = SpaceInvadersGameState.projectileSpeed * 1f;
+                break;
+            case 1:
+                gs.gameShipSpeed = SpaceInvadersGameState.playerSpeed * 1f;
+                gs.gameProjectileSpeed = SpaceInvadersGameState.projectileSpeed * 1f;
+                break;
+            case 2:
+                gs.gameShipSpeed = SpaceInvadersGameState.playerSpeed * 1f;
+                gs.gameProjectileSpeed = SpaceInvadersGameState.projectileSpeed * 1f;
+                break;
+            case 3:
+                gs.gameShipSpeed = SpaceInvadersGameState.playerSpeed * 1f;
+                gs.gameProjectileSpeed = SpaceInvadersGameState.projectileSpeed * 1f;
+                break;
+            case 4:
+                gs.gameShipSpeed = SpaceInvadersGameState.playerSpeed * 1f;
+                gs.gameProjectileSpeed = SpaceInvadersGameState.projectileSpeed * 1f;
+                break;
+            case 5:
+                gs.gameShipSpeed = SpaceInvadersGameState.playerSpeed * 1f;
+                gs.gameProjectileSpeed = SpaceInvadersGameState.projectileSpeed * 1f;
+                break;
+        }
     }
 
     static void UpdateEnemyPositions(ref SpaceInvadersGameState gs)
