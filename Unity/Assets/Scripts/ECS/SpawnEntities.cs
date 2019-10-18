@@ -35,8 +35,11 @@ public class SpawnEntities : ComponentSystem
         if (currentSpawnStep - lastSpawnStep >= spawnDelay && meteor.Length < 10000) // on cap à 10 000 entités 
         {
             var entity = EntityManager.Instantiate(spawners[0].meteorPrefab);
-            EntityManager.SetComponentData(entity, new Translation {Value = new float3(Random.Range(-9f,9f),Random.Range(0f,9f),0)});    
-            EntityManager.SetComponentData(entity, new Meteor {speed =  new float2(Random.Range(-0.05f,0.05f), Random.Range(-0.05f,0.05f))});    
+            EntityManager.SetComponentData(entity, new Meteor
+            {
+                pos = new float2(Random.Range(-9f,9f),Random.Range(0f,9f)), 
+                speed =  new float2(Random.Range(-0.05f,0.05f), Random.Range(-0.05f,0.05f))
+            });    
             lastSpawnStep = currentSpawnStep;
 
         }
