@@ -1,19 +1,22 @@
 ﻿using Unity.Collections;
 using Unity.Entities;
 using Unity.Mathematics;
+using Unity.Rendering;
 using Unity.Transforms;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 public class SpawnEntities : ComponentSystem
 {
+    public Mesh spr;
+    public Material mat;
     private float currentSpawnStep;
     private float lastSpawnStep;
     private float spawnDelay;
 
     protected override void OnCreate()
     {
-        spawnDelay = 60 * 0.1f; // 60 car 60 fps
+        spawnDelay = 60 * 1f; // 60 car 60 fps
         currentSpawnStep = spawnDelay;
     }
 
@@ -32,8 +35,8 @@ public class SpawnEntities : ComponentSystem
         if (currentSpawnStep - lastSpawnStep >= spawnDelay && meteor.Length < 10000) // on cap à 10 000 entités 
         {
             var entity = EntityManager.Instantiate(spawners[0].meteorPrefab);
-            EntityManager.SetComponentData(entity, new Translation {Value = new float3(0,4.5f,0)});    
-            EntityManager.SetComponentData(entity, new Meteor {speed =  new float2(Random.Range(-1.0f,1.0f), Random.Range(-1.0f,1.0f))});    
+            EntityManager.SetComponentData(entity, new Translation {Value = new float3(Random.Range(-9f,9f),Random.Range(0f,9f),0)});    
+            EntityManager.SetComponentData(entity, new Meteor {speed =  new float2(Random.Range(-0.05f,0.05f), Random.Range(-0.05f,0.05f))});    
             lastSpawnStep = currentSpawnStep;
 
         }
@@ -58,7 +61,7 @@ public class SpawnEntities : ComponentSystem
                 var posMet = EntityManager.GetComponentData<Meteor>(meteor[i]).pos;
                 EntityManager.SetComponentData(meteor[i], new Translation
                 {
-                    Value = new float3(posMet.x, posMet.y + 4.5f, 0)
+                    Value = new float3(posMet.x, posMet.y, 0)
                 });
             }
         }
