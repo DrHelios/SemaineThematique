@@ -149,7 +149,7 @@ public static class SpaceInvadersGameStateRules
             {
                 if (gs.playerPosition.y < 8.5f)
                 {
-                    gs.playerPosition += Vector2.up * gs.gameShipSpeed;
+                    gs.playerPosition += Vector2.up * SpaceInvadersGameState.enemySpeed * 4;
                 }
 
                 break;
@@ -158,7 +158,7 @@ public static class SpaceInvadersGameStateRules
             {
                 if (gs.playerPosition.y > 0.5f)
                 {
-                    gs.playerPosition += Vector2.down * gs.gameShipSpeed;
+                    gs.playerPosition += Vector2.down * SpaceInvadersGameState.enemySpeed * 4;
                 }
 
                 break;
@@ -176,7 +176,7 @@ public static class SpaceInvadersGameStateRules
                 gs.projectiles.Add(new Projectile
                 {
                     position = gs.playerPosition + Vector2.right * 1.3f,
-                    speed = Vector2.right * gs.gameProjectileSpeed
+                    speed = Vector2.right * SpaceInvadersGameState.projectileSpeed
                 });
                 break;
             }
@@ -193,7 +193,7 @@ public static class SpaceInvadersGameStateRules
             {
                 if (gs.playerPosition2.y < 8.5f)
                 {
-                    gs.playerPosition2 += Vector2.up * gs.gameShipSpeed;
+                    gs.playerPosition2 += Vector2.up * SpaceInvadersGameState.enemySpeed * 4;
                 }
 
                 break;
@@ -202,7 +202,7 @@ public static class SpaceInvadersGameStateRules
             {
                 if (gs.playerPosition2.y > 0.5f)
                 {
-                    gs.playerPosition2 += Vector2.down * gs.gameShipSpeed;
+                    gs.playerPosition2 += Vector2.down * SpaceInvadersGameState.enemySpeed * 4;
                 }
 
                 break;
@@ -219,7 +219,7 @@ public static class SpaceInvadersGameStateRules
                 gs.projectiles.Add(new Projectile
                 {
                     position = gs.playerPosition2 + Vector2.left * 1.3f,
-                    speed = Vector2.left * gs.gameProjectileSpeed
+                    speed = Vector2.left * SpaceInvadersGameState.projectileSpeed
                 });
                 break;
             }

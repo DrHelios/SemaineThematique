@@ -36,7 +36,7 @@ public class MCTSAgent : IAgent
         public RandomAgent rdmAgent;
 
         [WriteOnly]
-        public NativeArray<long> summedScores;
+        public NativeArray<long> summedScores; 
         
         public void Execute()
         {

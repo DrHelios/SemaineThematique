@@ -47,15 +47,6 @@ public class GameSystemScript : MonoBehaviour
         playerView = Instantiate(Player1Prefab).GetComponent<Transform>();
         playerView2 = Instantiate(Player2Prefab).GetComponent<Transform>();
 
-        //agent = new RandomAgent {rdm = new Unity.Mathematics.Random((uint) Time.frameCount)};
-        //agent2 = new RandomAgent {rdm = new Unity.Mathematics.Random((uint) Time.frameCount)};
-        
-        //agent = new RandomRolloutAgent();
-        //agent2 = new RandomRolloutAgent();
-        
-        //agent = new HumanAgent();
-        //agent2 = new HumanAgent();
-        
         DefineAgent1(ApplicationData.IndexOfTypeOfChosenAgent);
         DefineAgent2(ApplicationData.IndexOfTypeOfChosenAgent2);
         
