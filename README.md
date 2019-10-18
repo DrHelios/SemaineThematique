@@ -2,6 +2,8 @@
 
 # Général Usage Notes Projet PongStéroïde:
 
+ La scène Menu lance le jeu dan l'interface d'unity 
+
   - Les contrôles du J1 :
 
     + Haut:  Z
