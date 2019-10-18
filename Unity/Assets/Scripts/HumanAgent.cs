@@ -5,6 +5,7 @@ using UnityEngine;
 public class HumanAgent : IAgent
 {
     private IAgent _agentImplementation;
+    
 
     public int Act(ref SpaceInvadersGameState gs, NativeArray<int> availableActions, int plyId)
     {
