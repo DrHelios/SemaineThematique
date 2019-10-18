@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using Unity.Burst;
+﻿using Unity.Burst;
 using Unity.Collections;
 using Unity.Jobs;
 using UnityEngine;
@@ -11,10 +9,11 @@ public struct ANode
 public int cost;
 public SpaceInvadersGameState gsn;
 }
-public class AStarAgent : IAgent
+
+/*public class AStarAgent : IAgent
 {
     [BurstCompile]
-    struct AStarJob : IJobParallelFor
+    struct AStarJob : IJob
     {
         public SpaceInvadersGameState gs;
         
@@ -26,7 +25,7 @@ public class AStarAgent : IAgent
         [WriteOnly]
         public NativeArray<long> summedScores;
 
-        public void Execute(int index)
+        public void Execute()
         {
              var epochs = 100;
              var agent = rdmAgent;
@@ -38,7 +37,7 @@ public class AStarAgent : IAgent
                  gsn = gs,
                  cost = 0
              };
-             NativeList<ANode> listNode = new NativeList<ANode>();
+             NativeList<ANode> listNode = new NativeList<ANode>(Allocator.Temp);
              for (int i = 0; i < availableActions.Length; i++)
              {
                  listNode.Add(new ANode
@@ -51,13 +50,13 @@ public class AStarAgent : IAgent
              for (var n = 0; n < epochs; n++)
              {
                  Rules.CopyTo(ref gs, ref gsCopy);
-                 Rules.Step(ref gsCopy, availableActions[index],availableActions[index + 1]);
+//                 Rules.Step(ref gsCopy, availableActions[index],availableActions[index + 1]);
                  
                  var currentDepth = 0;
                  while (!gsCopy.isGameOver)
                  {
                      var costNew = nodeStart.cost;
-                     NativeList<ANode> nextListNode = new NativeList<ANode>();
+                     NativeList<ANode> nextListNode = new NativeList<ANode>(Allocator.Temp);
                      Rules.Step(ref gsCopy, agent.Act(ref gsCopy, availableActions, 1),agent.Act(ref gsCopy, availableActions, 2));
                      for (var i = 0; i < gs.projectiles.Length; i++)
                      {
@@ -101,14 +100,12 @@ public class AStarAgent : IAgent
                          break;
                      }
                  }
-                 summedScores[index] += gsCopy.playerScore;
-                 summedScores[index + 1] += gsCopy.iaScore;
              }
         }
-    }
+    }*/
 
 
-    public int Act(ref SpaceInvadersGameState gs, NativeArray<int> availableActions, int plyId)
+   /* public int Act(ref SpaceInvadersGameState gs, NativeArray<int> availableActions, int plyId)
     {
         //throw new NotImplementedException();
         var job = new AStarJob()
@@ -119,7 +116,7 @@ public class AStarAgent : IAgent
             rdmAgent = new RandomAgent {rdm = new Random((uint) Time.frameCount)}
         };
 
-        var handle = job.Schedule(availableActions.Length, 1);
+        var handle = job.Schedule();
         handle.Complete();
 
         var bestActionIndex = -1;
@@ -140,4 +137,4 @@ public class AStarAgent : IAgent
         job.summedScores.Dispose();
         return chosenAction;
     }
-}
+}*/
