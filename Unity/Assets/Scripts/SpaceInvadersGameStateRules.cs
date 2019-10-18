@@ -315,14 +315,14 @@ public static class SpaceInvadersGameStateRules
         var enemyXPosition = 0f;
         if (plyId == 2)
         {
-              enemyXPosition = gs.playerPosition.x;
-              distance = math.abs(enemyXPosition - gs.playerPosition2.x);
+              enemyXPosition = gs.playerPosition.y;
+              distance = math.abs(enemyXPosition - gs.playerPosition2.y);
         }
 
         else if (plyId == 1)
         {
-             enemyXPosition = gs.playerPosition2.x;
-             distance = math.abs(enemyXPosition - gs.playerPosition.x);
+             enemyXPosition = gs.playerPosition2.y;
+             distance = math.abs(enemyXPosition - gs.playerPosition.y);
         }
 
         closestEnemyIndex = 0;
@@ -335,15 +335,17 @@ public static class SpaceInvadersGameStateRules
         
         if (plyId == 1)
         {
-            hash += 20+gs.currentGameStep * (long) math.round(math.clamp(gs.playerPosition2.y, 0.50000001f, 8.4999999f) - 0.5);
+            hash += 10*(long) math.round(math.clamp(gs.playerPosition2.y, 0.50000001f, 8.4999999f) - 0.5);
 
         }
 
         else if (plyId == 2)
         {
-            hash += 20+gs.currentGameStep * (long) math.round(math.clamp(gs.playerPosition.y, 0.50000001f, 8.4999999f) - 0.5);
+            hash += 10 * (long) math.round(math.clamp(gs.playerPosition.y, 0.50000001f, 8.4999999f) - 0.5);
 
         }
+
+        hash += 100 * gs.currentGameStep;
 
 //20+currentstep
         return hash;

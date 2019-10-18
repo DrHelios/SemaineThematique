@@ -40,7 +40,7 @@ public class MCTSAgent : IAgent
         
         public void Execute()
         {
-            var epochs = 5;
+            var epochs = 50;
             var agent = rdmAgent;
 
             var gsCopy = Rules.Clone(ref gs);
@@ -117,7 +117,7 @@ public class MCTSAgent : IAgent
                         hash = currentHash,
                         nodeIndex = bestNodeIndex
                     });
-                    Rules.Step(ref gsCopy, memory[currentHash][bestNodeIndex].action,0);
+                    Rules.Step(ref gsCopy, memory[currentHash][bestNodeIndex].action,rdmAgent.Act(ref gsCopy, availableActions, 2));
                     currentHash = Rules.GetHashCode(ref gsCopy, playerId);
 
                     if (!memory.ContainsKey(currentHash))
@@ -195,7 +195,7 @@ public class MCTSAgent : IAgent
                     var list = memory[selectedNodes[i].hash];
                     var node = list[selectedNodes[i].nodeIndex];
 
-                    node.rc += gsCopy.playerScore;
+                    node.rc += gsCopy.playerScore-gsCopy.iaScore*3;
                     node.nc += 1;
 
                     list[selectedNodes[i].nodeIndex] = node;
