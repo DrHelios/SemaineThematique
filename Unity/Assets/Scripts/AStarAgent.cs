@@ -1,4 +1,5 @@
-﻿using Unity.Burst;
+﻿using System;
+using Unity.Burst;
 using Unity.Collections;
 using Unity.Jobs;
 using UnityEngine;
@@ -9,111 +10,104 @@ public struct ANode
 public int cost;
 public SpaceInvadersGameState gsn;
 }
-
-/*public class AStarAgent : IAgent
+public class AStarAgent : IAgent
 {
     [BurstCompile]
-    struct AStarJob : IJob
+    struct AStarAgentJob : IJob
     {
         public SpaceInvadersGameState gs;
-        
+
+        public int playerId;
+
         [ReadOnly]
         public NativeArray<int> availableActions;
 
         public RandomAgent rdmAgent;
 
         [WriteOnly]
-        public NativeArray<long> summedScores;
-
+        public NativeArray<long> summedScores; 
+        
         public void Execute()
         {
-             var epochs = 100;
-             var agent = rdmAgent;
- 
-             var gsCopy = Rules.Clone(ref gs);
+            var epochs = 5;
+            var agent = rdmAgent;
 
-             var nodeStart = new ANode
-             {
-                 gsn = gs,
-                 cost = 0
-             };
-             NativeList<ANode> listNode = new NativeList<ANode>(Allocator.Temp);
-             for (int i = 0; i < availableActions.Length; i++)
-             {
-                 listNode.Add(new ANode
-                 {
-                     gsn = gs,
-                     cost = availableActions[i] ,
-                 });
-             }
+            var gsCopy = Rules.Clone(ref gs);
 
-             for (var n = 0; n < epochs; n++)
-             {
-                 Rules.CopyTo(ref gs, ref gsCopy);
-//                 Rules.Step(ref gsCopy, availableActions[index],availableActions[index + 1]);
-                 
-                 var currentDepth = 0;
-                 while (!gsCopy.isGameOver)
-                 {
-                     var costNew = nodeStart.cost;
-                     NativeList<ANode> nextListNode = new NativeList<ANode>(Allocator.Temp);
-                     Rules.Step(ref gsCopy, agent.Act(ref gsCopy, availableActions, 1),agent.Act(ref gsCopy, availableActions, 2));
-                     for (var i = 0; i < gs.projectiles.Length; i++)
-                     {
-                         var sqrDistance = (gs.projectiles[i].position - gs.playerPosition).sqrMagnitude;
-                         //var sqrDistancePly2 = (gs.projectiles[i].position - gs.playerPosition2).sqrMagnitude;
-                         for (var j = 0; j < listNode.Length; j++)
-                         {
-                             if (listNode[j].cost == nodeStart.cost )
-                             {
-                                 break;
-                             }
-                             costNew += (costNew + listNode[j].cost + (Int32)(sqrDistance / (SpaceInvadersGameState.projectileSpeed) * (3 - gs.iaScore)));
-                             ANode nodeNext = new ANode
-                             {
-                                 gsn = gs,
-                                 cost = costNew
-                             };
-                             for (int l = 0; l < j; l++)
-                             {
+            var nodeStart = new ANode
+            {
+                gsn = gsCopy,
+                cost = 0
+            };
+            NativeList<ANode> listNode = new NativeList<ANode>(Allocator.Temp);
+            for (int i = 0; i < availableActions.Length; i++)
+            {
+                listNode.Add(new ANode
+                {
+                    gsn = gsCopy,
+                    cost = availableActions[i] ,
+                });
+            }
+            for (var n = 0; n < epochs; n++)
+            {
+                Rules.CopyTo(ref gs, ref gsCopy);
+                
+                while (!gsCopy.isGameOver)
+                {
+                    var costNew = nodeStart.cost;
+                    NativeList<ANode> nextListNode = new NativeList<ANode>(Allocator.Temp);
+                    Rules.Step(ref gsCopy, agent.Act(ref gsCopy, availableActions, 1),agent.Act(ref gsCopy, availableActions, 2));
+                    for (var i = 0; i < gs.projectiles.Length; i++)
+                    {
+                        var sqrDistance = (gs.projectiles[i].position - gs.playerPosition).sqrMagnitude;
+                        for (var j = 0; j < listNode.Length; j++)
+                        {
+                            if (listNode[j].cost == nodeStart.cost )
+                            {
+                                break;
+                            }
+                            costNew += (costNew + listNode[j].cost + (Int32)(sqrDistance / (SpaceInvadersGameState.projectileSpeed) * (3 - gs.iaScore)));
+                            ANode nodeNext = new ANode
+                            {
+                                gsn = gs,
+                                cost = costNew
+                            };
+                            for (int l = 0; l < j; l++)
+                            {
                                 nextListNode.Add(nodeNext);
-                             }
-                         }
-                         int minInt = nextListNode[1].cost;
-                         for (var a = 0; a < nextListNode.Length; a++)
-                         {
-                             if (nextListNode[a].cost < minInt)
-                             {
-                                 minInt = nextListNode[a].cost;
-                             }
-                         }
+                            }
+                        }
+                        int minInt = nextListNode[1].cost;
+                        for (var a = 0; a < nextListNode.Length; a++)
+                        {
+                            if (nextListNode[a].cost < minInt)
+                            {
+                                minInt = nextListNode[a].cost;
+                            }
+                        }
 
-                         nodeStart = new ANode
-                         {
+                        nodeStart = new ANode
+                        {
                             gsn = gs,
                             cost = minInt
-                         };
-                         nextListNode.Clear();
-                     }
-                     if (currentDepth > 500)
-                     {
-                         break;
-                     }
-                 }
-             }
+                        };
+                        nextListNode.Clear();
+                    }
+                }
+            }
         }
-    }*/
+    }
 
-
-   /* public int Act(ref SpaceInvadersGameState gs, NativeArray<int> availableActions, int plyId)
+    public int Act(ref SpaceInvadersGameState gs, NativeArray<int> availableActions, int plyId)
     {
-        //throw new NotImplementedException();
-        var job = new AStarJob()
+        
+        var job = new AStarAgentJob
         {
             availableActions = availableActions,
             gs = gs,
             summedScores = new NativeArray<long>(availableActions.Length, Allocator.TempJob),
-            rdmAgent = new RandomAgent {rdm = new Random((uint) Time.frameCount)}
+            rdmAgent = new RandomAgent {rdm = new Random((uint) Time.frameCount)},
+            playerId = plyId
         };
 
         var handle = job.Schedule();
@@ -135,6 +129,7 @@ public SpaceInvadersGameState gsn;
         var chosenAction = availableActions[bestActionIndex];
 
         job.summedScores.Dispose();
+        
         return chosenAction;
     }
-}*/
+}
