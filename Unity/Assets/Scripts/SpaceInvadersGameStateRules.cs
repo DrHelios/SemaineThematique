@@ -32,7 +32,7 @@ public static class SpaceInvadersGameStateRules
             throw new Exception("YOU SHOULD NOT TRY TO UPDATE GAME STATE WHEN GAME IS OVER !!!");
         }
 
-        if (gs.currentGameStep == 40000)
+        if (gs.currentGameStep == 20000)
             gs.isGameOver = true;
 
         UpdateEnemyPositions(ref gs);
