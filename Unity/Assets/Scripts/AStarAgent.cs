@@ -8,6 +8,7 @@ using Rules = SpaceInvadersGameStateRules;
 public struct ANode
 {
 public int cost;
+public int action;
 public SpaceInvadersGameState gsn;
 }
 public class AStarAgent : IAgent
@@ -19,88 +20,102 @@ public class AStarAgent : IAgent
 
         public int playerId;
 
-        [ReadOnly]
-        public NativeArray<int> availableActions;
+        [ReadOnly] public NativeArray<int> availableActions;
 
         public RandomAgent rdmAgent;
 
-        [WriteOnly]
-        public NativeArray<long> summedScores; 
-        
+        [WriteOnly] public NativeArray<long> summedScores;
+
         public void Execute()
         {
             var epochs = 5;
             var agent = rdmAgent;
 
             var gsCopy = Rules.Clone(ref gs);
+            var rootHash = Rules.GetHashCode(ref gsCopy, playerId);
+
+            // CREATION DE LA MEMOIRE (Arbre)
+            var memory = new NativeHashMap<long, NativeList<ANode>>(2048, Allocator.Temp); // FOR BURSTCOMPILE
+
+            memory.TryAdd(rootHash, new NativeList<ANode>(availableActions.Length, Allocator.Temp));
 
             var nodeStart = new ANode
             {
                 gsn = gsCopy,
-                cost = 0
+                cost = 0,
+                action = 0
             };
-            NativeList<ANode> listNode = new NativeList<ANode>(Allocator.Temp);
+
             for (int i = 0; i < availableActions.Length; i++)
             {
-                listNode.Add(new ANode
-                {
-                    gsn = gsCopy,
-                    cost = availableActions[i] ,
-                });
+                memory[rootHash]
+                    .Add(new ANode
+                    {
+                        gsn = gsCopy,
+                        cost = availableActions[i],
+                        action = availableActions[i]
+                    });
             }
+
             for (var n = 0; n < epochs; n++)
             {
                 Rules.CopyTo(ref gs, ref gsCopy);
-                
+                var currentHash = rootHash;
+
                 while (!gsCopy.isGameOver)
                 {
+                    var hasUnexploredNodes = false;
                     var costNew = nodeStart.cost;
-                    NativeList<ANode> nextListNode = new NativeList<ANode>(Allocator.Temp);
-                    Rules.Step(ref gsCopy, agent.Act(ref gsCopy, availableActions, 1),agent.Act(ref gsCopy, availableActions, 2));
+
+                    for (var i = 0; i < memory[currentHash].Length; i++)
+                    {
+                        if (memory[currentHash][i].cost == nodeStart.cost)
+                        {
+                            hasUnexploredNodes = true;
+                            break;
+                        }
+                    }
+
+                    if (hasUnexploredNodes)
+                    {
+                        break;
+                    }
+
+                    var minNodeIndex = -1;
+                    var minNodeCost = int.MinValue;
+
                     for (var i = 0; i < gs.projectiles.Length; i++)
                     {
                         var sqrDistance = (gs.projectiles[i].position - gs.playerPosition).sqrMagnitude;
-                        for (var j = 0; j < listNode.Length; j++)
+                        for (var j = 0; j < memory[currentHash].Length; j++)
                         {
-                            if (listNode[j].cost == nodeStart.cost )
+                            var list = memory[currentHash];
+                            var node = list[j];
+                            var euristique = (Int32) (sqrDistance / (SpaceInvadersGameState.projectileSpeed) *
+                                                      (3 - gsCopy.iaScore));
+                            costNew += memory[currentHash][j].cost + euristique;
+                            if (costNew >= minNodeCost)
                             {
-                                break;
-                            }
-                            costNew += (costNew + listNode[j].cost + (Int32)(sqrDistance / (SpaceInvadersGameState.projectileSpeed) * (3 - gs.iaScore)));
-                            ANode nodeNext = new ANode
-                            {
-                                gsn = gs,
-                                cost = costNew
-                            };
-                            for (int l = 0; l < j; l++)
-                            {
-                                nextListNode.Add(nodeNext);
+                                minNodeIndex = i;
+                                minNodeCost = costNew;
                             }
                         }
-                        int minInt = nextListNode[1].cost;
-                        for (var a = 0; a < nextListNode.Length; a++)
-                        {
-                            if (nextListNode[a].cost < minInt)
-                            {
-                                minInt = nextListNode[a].cost;
-                            }
-                        }
-
-                        nodeStart = new ANode
-                        {
-                            gsn = gs,
-                            cost = minInt
-                        };
-                        nextListNode.Clear();
                     }
+
+                    Rules.Step(ref gsCopy, memory[currentHash][minNodeIndex].action, 0);
+                    currentHash = Rules.GetHashCode(ref gsCopy, playerId);
                 }
+            }
+
+            for (var i = 0; i < memory[rootHash].Length; i++)
+            {
+                summedScores[i] = memory[rootHash][i].cost;
             }
         }
     }
 
     public int Act(ref SpaceInvadersGameState gs, NativeArray<int> availableActions, int plyId)
     {
-        
         var job = new AStarAgentJob
         {
             availableActions = availableActions,
