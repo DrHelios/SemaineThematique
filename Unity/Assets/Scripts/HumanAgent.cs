@@ -1,14 +1,15 @@
 ﻿using System;
 using Unity.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class HumanAgent : IAgent
 {
     private IAgent _agentImplementation;
-    
-
+    private int action = ButtonScriptCopy.action;
     public int Act(ref SpaceInvadersGameState gs, NativeArray<int> availableActions, int plyId)
     {
+        
         if (Input.GetKey(KeyCode.Space)&&plyId==1)
         {
             return 3;
@@ -37,7 +38,12 @@ public class HumanAgent : IAgent
         {
             return 7;
         }
-        
+
+        if (action != 0)
+            return action;
+
         return 0;
+
+
     }
 }

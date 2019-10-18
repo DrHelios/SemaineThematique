@@ -901,8 +901,110 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6022394363372091162, guid: 31005bfd5bcccc746a921b512c8a808f,
+        type: 3}
+      propertyPath: button1
+      value: 
+      objectReference: {fileID: 2097822073}
+    - target: {fileID: 6022394363372091162, guid: 31005bfd5bcccc746a921b512c8a808f,
+        type: 3}
+      propertyPath: button2
+      value: 
+      objectReference: {fileID: 2097822072}
+    - target: {fileID: 6022394363372091162, guid: 31005bfd5bcccc746a921b512c8a808f,
+        type: 3}
+      propertyPath: button3
+      value: 
+      objectReference: {fileID: 2097822071}
+    - target: {fileID: 6022394363372091162, guid: 31005bfd5bcccc746a921b512c8a808f,
+        type: 3}
+      propertyPath: button4
+      value: 
+      objectReference: {fileID: 2097822070}
+    - target: {fileID: 6022394363372091162, guid: 31005bfd5bcccc746a921b512c8a808f,
+        type: 3}
+      propertyPath: button5
+      value: 
+      objectReference: {fileID: 2097822069}
+    - target: {fileID: 6022394363372091162, guid: 31005bfd5bcccc746a921b512c8a808f,
+        type: 3}
+      propertyPath: button6
+      value: 
+      objectReference: {fileID: 2097822068}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 31005bfd5bcccc746a921b512c8a808f, type: 3}
+--- !u!114 &2097822068 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6022394361976841699, guid: 31005bfd5bcccc746a921b512c8a808f,
+    type: 3}
+  m_PrefabInstance: {fileID: 2097822067}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2097822069 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6022394362788577759, guid: 31005bfd5bcccc746a921b512c8a808f,
+    type: 3}
+  m_PrefabInstance: {fileID: 2097822067}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2097822070 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6022394361642995261, guid: 31005bfd5bcccc746a921b512c8a808f,
+    type: 3}
+  m_PrefabInstance: {fileID: 2097822067}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2097822071 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6022394361490845540, guid: 31005bfd5bcccc746a921b512c8a808f,
+    type: 3}
+  m_PrefabInstance: {fileID: 2097822067}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2097822072 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6022394363293064831, guid: 31005bfd5bcccc746a921b512c8a808f,
+    type: 3}
+  m_PrefabInstance: {fileID: 2097822067}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2097822073 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6022394362298430124, guid: 31005bfd5bcccc746a921b512c8a808f,
+    type: 3}
+  m_PrefabInstance: {fileID: 2097822067}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &2109072982 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7505476137583513650, guid: 385136a6a6f8d414db8121a433e9c664,

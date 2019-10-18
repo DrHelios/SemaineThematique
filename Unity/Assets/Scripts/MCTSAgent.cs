@@ -40,7 +40,7 @@ public class MCTSAgent : IAgent
         
         public void Execute()
         {
-            var epochs = 50;
+            var epochs = 35;
             var agent = rdmAgent;
 
             var gsCopy = Rules.Clone(ref gs);
