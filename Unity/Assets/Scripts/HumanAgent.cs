@@ -6,10 +6,10 @@ using UnityEngine.UI;
 public class HumanAgent : IAgent
 {
     private IAgent _agentImplementation;
-    private int action = ButtonScriptCopy.action;
+    private int action;
     public int Act(ref SpaceInvadersGameState gs, NativeArray<int> availableActions, int plyId)
     {
-        
+        int action = ButtonScriptCopy.action;
         if (Input.GetKey(KeyCode.Space)&&plyId==1)
         {
             return 3;

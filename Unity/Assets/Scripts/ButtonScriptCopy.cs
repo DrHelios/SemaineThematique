@@ -61,19 +61,19 @@ public class ButtonScriptCopy : MonoBehaviour
 
     public void Up2()
     {
-        action = 1;
-        Debug.Log("Action 1");
+        action = 5;
+        Debug.Log("Action 5");
     }
 
     public void Down2()
     {
-        action = 2;
-        Debug.Log("Action 2");
+        action = 6;
+        Debug.Log("Action 6");
     }
 
     public void Fire2()
     {
-        action = 3;
-        Debug.Log("Action 3");
+        action = 7;
+        Debug.Log("Action 7");
     }
 }
