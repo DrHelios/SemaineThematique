@@ -125,6 +125,7 @@ public class GameSystemScript : MonoBehaviour
                 agent2 = new RandomRolloutAgent();
                 break;
             case 3: // Dijstra
+                agent2 = new AStarAgent();
                 break;
             case 4: // MCTS
                 agent2 = new MCTSAgent();
