@@ -10,8 +10,8 @@ public static class SpaceInvadersGameStateRules
     {
         gs.enemies = new NativeList<Enemy>(10, Allocator.Persistent);
         gs.projectiles = new NativeList<Projectile>(100, Allocator.Persistent);
-        gs.playerPosition = new Vector2(-8f, 5f);
-        gs.playerPosition2 = new Vector2(8f, 5f);
+        gs.playerPosition = new Vector2(-6.5f, 5f);
+        gs.playerPosition2 = new Vector2(6.5f, 5f);
         gs.isGameOver = false;
         gs.lastShootStep = -SpaceInvadersGameState.shootDelay;
         gs.lastShootStep2 = -SpaceInvadersGameState.shootDelay;
