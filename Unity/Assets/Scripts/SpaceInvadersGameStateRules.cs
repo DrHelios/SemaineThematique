@@ -313,13 +313,13 @@ public static class SpaceInvadersGameStateRules
 
         var distance= 0f;
         var enemyXPosition = 0f;
-        if (plyId == 1)
+        if (plyId == 2)
         {
               enemyXPosition = gs.playerPosition.x;
               distance = math.abs(enemyXPosition - gs.playerPosition2.x);
         }
 
-        else if (plyId == 2)
+        else if (plyId == 1)
         {
              enemyXPosition = gs.playerPosition2.x;
              distance = math.abs(enemyXPosition - gs.playerPosition.x);
